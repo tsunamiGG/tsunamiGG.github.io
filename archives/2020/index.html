@@ -18,7 +18,7 @@
 
   <!-- 页面元数据 -->
   
-    <title>歸檔：2019/5 - Secret Garden</title>
+    <title>歸檔：2020 - Secret Garden</title>
   
   
 
@@ -307,6 +307,8 @@
         
           
         
+          
+        
       
     
     
@@ -325,8 +327,8 @@
         
           
   <h2 class="title">
-    <a href="/2019/05/19/Event%20loop/">
-      Event loop
+    <a href="/2020/05/22/Vue-source-learn2/">
+      Vue的变化侦测
     </a>
   </h2>
 
@@ -356,7 +358,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：May 19, 2019</p>
+    <p>发布于：May 22, 2020</p>
   </a>
 </div>
 
@@ -367,13 +369,13 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字數：909字</p>
+      <p>字數：1.8k字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>時長：3分鐘</p>
+      <p>時長：8分鐘</p>
     </a>
   </div>
 
@@ -397,58 +399,120 @@
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Event-loop的粗浅认识"><a href="#Event-loop的粗浅认识" class="headerlink" title="Event loop的粗浅认识"></a>Event loop的粗浅认识</h1><h5 id="事件轮询"><a href="#事件轮询" class="headerlink" title="事件轮询"></a>事件轮询</h5><p>js是单线程的。其事件轮询由：同步任务，异步任务，macrotask（宏任务），microtask （微任务）组成。其执行过程如下：</p>
-<ul>
-<li>同步任务： 主线程上的任务，前一个完成后后一个执行。</li>
-<li>异步任务：不进入主线程，进入任务队列（task queue)中执行，等于macrotask。</li>
-<li>macrotask：任务队列的主体，同一个队列内的“先进先出”执行。不同的队列之间“先进后出”执行。</li>
-<li>microtask ：总在任务队列末尾执行，有新的microtask 继续加在末尾执行。</li>
-</ul>
-<p>执行过程：1.同步任务执行 2.  任务按队列依次执行 3.微任务按队列依次执行 4.重复1-3</p>
-<h5 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h5><p>对于<code>宏任务</code>和<code>微任务</code>的概念的理解，一开始确实是不太清楚的。</p>
-<p>先来说说<code>宏任务</code>，我们不妨这样来看，既然它是<strong>任务队列的主体</strong>，那么它一定由一个或者多个任务构成。抛开<code>JS</code>,[宏]这个字本身就不是单一的，在<code>CS</code>中的[宏]就是<strong>批量处理</strong>的意思。</p>
-<p>对于稍微了解过一点点<code>c</code>的人来说，应该都不陌生，辟如：编译预处理命令，宏定义等等。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 编译预处理命令</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="comment">// 宏定义</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.14</span></span><br></pre></td></tr></table></figure>
-
-<p>我将[编译预处理命令]（在编译之前进行的处理）就看做是[宏任务]，就是你写了一系列的前置操作，在后面的代码执行之前，这些宏任务全部需要执行完毕~</p>
-<p>稍微生活化一点点，比如那个中国互联网起步的时候，我的同学之间，喜欢用QQ等级作为谈资。所以我让我的<strong>电脑开机后自动登录QQ</strong>；或者现今5G来临之前，男生多半玩过的MOBA类游戏，就拿LOL中的瞎子<strong>摸眼R闪</strong>这种操作，你完全可以选一个拥有宏命令的鼠标，设置测试后一键完成这种“用双手成就你的梦想”等秀的飞起的操作；还有诸如乔碧萝之类的人士，开启直播推流之前，对自己<strong>直播效果的优化</strong>。这些都是所谓<strong>宏任务</strong>。</p>
-<p>至于<code>微任务</code>，相信聪明可爱的你一定能够举一反一，找到自己对其充分的理解~:smile:</p>
-<p>常见的宏任务和微任务：</p>
-<p><strong>宏任务</strong>：</p>
-<ul>
-<li>setTimeout</li>
-<li>setInterval</li>
-<li>setImmediate</li>
-<li>requestAnimationFrame</li>
-<li>I/O</li>
-<li>UI rendering</li>
-</ul>
-<p><strong>微任务</strong>：</p>
-<ul>
-<li>process.nextTick</li>
-<li>Promises</li>
-<li>Object.observe</li>
-<li>MutationObserver</li>
-</ul>
-<p><strong>执行图例</strong></p>
-<p>希望执行帧动画能让你对整个过程的理解清晰许多</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/1/18/16860ae5ad02f993?imageslim" alt=""></p>
-<h5 id="小练习1"><a href="#小练习1" class="headerlink" title="小练习1"></a><strong>小练习1</strong></h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise1'</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise2'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 浏览器输出顺序：</span></span><br><span class="line"><span class="comment">//script start</span></span><br><span class="line"><span class="comment">//script end</span></span><br><span class="line"><span class="comment">//promise1</span></span><br><span class="line"><span class="comment">//promise2</span></span><br><span class="line"><span class="comment">//setTimeout</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="小练习2"><a href="#小练习2" class="headerlink" title="小练习2"></a><strong>小练习2</strong></h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async1 start'</span>)</span><br><span class="line">    <span class="keyword">await</span> async2()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async1 end'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async2'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>)</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>) </span><br><span class="line">&#125;,<span class="number">0</span>)  </span><br><span class="line">async1();</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise1'</span>)</span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise2'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>)</span><br><span class="line"><span class="comment">// 浏览器输出顺序：</span></span><br><span class="line"><span class="comment">// script start</span></span><br><span class="line"><span class="comment">//async1 start</span></span><br><span class="line"><span class="comment">//async2</span></span><br><span class="line"><span class="comment">//promise1</span></span><br><span class="line"><span class="comment">//script end</span></span><br><span class="line"><span class="comment">//async1 end</span></span><br><span class="line"><span class="comment">//promise2</span></span><br><span class="line"><span class="comment">//setTimeout</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<ul>
-<li>await会将之后的代码抛入下一个执行队列，代码上的表现就是执行完await的会跳出函数体执行其他的同步任务。</li>
-<li>setTimeout的回调函数会进入下一个同步任务队列中。</li>
-<li>如果输出顺序不一致，是因为各大浏览器对异步的处理是不一样的，没什么奇怪的。</li>
-<li>另外，node环境输出顺序也有很大差异。</li>
-</ul>
-</blockquote>
-
+        <p>Vue的响应式数据是如何做到的？</p>
       
     </div>
     
+      
+        <div class="button readmore">
+          <a href="/2020/05/22/Vue-source-learn2/">
+            阅读全文 <i class="fas fa-chevron-right"></i>
+          </a>
+        </div>
+      
+    
+  </section>
+</article>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h2 class="title">
+    <a href="/2020/05/10/Vue-source-learn1/">
+      vue源码学习（开篇）
+    </a>
+  </h2>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://tsunamigg.github.io/" rel="nofollow">
+    <img src="https://avatars2.githubusercontent.com/u/37109219?s=460&u=72c6da1fb1e7512a0f73dd255dd2b85998682a99&v=4">
+    <p>tsunami</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：May 10, 2020</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字數：1.3k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>時長：5分鐘</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>应该如何学习源码？ 我觉得最开始有个全局观，然后切入细节的模块，带着问题去读。</p>
+      
+    </div>
+    
+      
+        <div class="button readmore">
+          <a href="/2020/05/10/Vue-source-learn1/">
+            阅读全文 <i class="fas fa-chevron-right"></i>
+          </a>
+        </div>
       
     
   </section>
