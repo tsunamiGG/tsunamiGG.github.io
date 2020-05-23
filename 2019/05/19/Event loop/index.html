@@ -21,6 +21,8 @@
     <meta name="keywords" content="javascript event loop">
   
   
+    <meta name="description" content="Event loop的粗浅认识">
+  
 
   <!-- feed -->
   
@@ -291,7 +293,7 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>909 words</p>
+      <p>910 words</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -321,7 +323,10 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <h1 id="Event-loop的粗浅认识"><a href="#Event-loop的粗浅认识" class="headerlink" title="Event loop的粗浅认识"></a>Event loop的粗浅认识</h1><h5 id="事件轮询"><a href="#事件轮询" class="headerlink" title="事件轮询"></a>事件轮询</h5><p>js是单线程的。其事件轮询由：同步任务，异步任务，macrotask（宏任务），microtask （微任务）组成。其执行过程如下：</p>
+          <p>Event loop的粗浅认识</p>
+<a id="more"></a>
+
+<h5 id="事件轮询"><a href="#事件轮询" class="headerlink" title="事件轮询"></a>事件轮询</h5><p>js是单线程的。其事件轮询由：同步任务，异步任务，macrotask（宏任务），microtask （微任务）组成。其执行过程如下：</p>
 <ul>
 <li>同步任务： 主线程上的任务，前一个完成后后一个执行。</li>
 <li>异步任务：不进入主线程，进入任务队列（task queue)中执行，等于macrotask。</li>
@@ -456,10 +461,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-17T19:46:13+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-23T22:52:52+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：May 17, 2020</p>
+    <p>更新于：May 23, 2020</p>
   </a>
 </div>
 
