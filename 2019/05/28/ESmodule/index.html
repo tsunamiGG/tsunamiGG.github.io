@@ -435,7 +435,7 @@
 <p>首先，JS 引擎会创建一个<strong>模块环境记录</strong>（Module Environment Record）。它管理着模块记录的所有变量。然后，引擎会找出多有导出在内存中的地址。模块环境记录会跟踪每个导出对应于哪个内存地址。</p>
 <p>这些内存地址此时还没有值，只有等到运行后它们才会被填充上实际值。有一点要注意，所有导出的函数声明都在这个阶段初始化，这会使得后面的运行阶段变得更加简单。</p>
 <p>为了实例化模块关系图，引擎会采用<strong>深度优先的后序遍历方式</strong>。<br>即，它会顺着关系图到达最底端没有任何依赖的模块，然后设置它们的导出。</p>
-<p><img src="https://segmentfault.com/img/bV8cbJ?w=6086&h=2505" alt="30_live_bindings_01.png"></p>
+<p><img src="https://hacks.mozilla.org/files/2018/03/30_live_bindings_04-500x206.png" alt="30_live_bindings_01.png"></p>
 <p>最终，引擎会把模块下的所有依赖导出链接到当前模块。然后回到上一层把模块的导入链接起来。</p>
 <p><img src="https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/30_live_bindings_02-500x206.png" alt="Same diagram as above, but with the module environment record for main.js now having its imports linked up to the exports from the other two modules."></p>
 <p>这个过程跟 CJS 是不同的。在 CJS 中，整个导出对象在导出时都是<strong>值拷贝</strong>。<br>即，所有的导出值都是拷贝值，而不是引用。<br>所以，如果导出模块内导出的值改变了，导入模块中导入的值也不会改变。</p>
@@ -552,7 +552,7 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-28T20:20:10+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-28T21:23:16+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：May 28, 2020</p>
