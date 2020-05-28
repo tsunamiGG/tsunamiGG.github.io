@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>css tips - Secret Garden</title>
+  
+    <meta name="keywords" content="css">
+  
+  
+    <meta name="description" content="如何进行命名是一件看上去微不足道但其实对代码整洁度破坏很大的事情，《代码整洁之道》建议的第一篇就是如何进行好的命名">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+          
+            VOLANTIS <b><sup style='color:#3AA757'>2.6.6</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2019/04/11/CSS-tips/">
+      css tips
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://tsunamigg.github.io/" rel="nofollow">
+    <img src="https://avatars2.githubusercontent.com/u/37109219?s=460&u=72c6da1fb1e7512a0f73dd255dd2b85998682a99&v=4">
+    <p>tsunami</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Apr 11, 2019</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>2k words</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>7 min</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>如何进行命名是一件看上去微不足道但其实对代码整洁度破坏很大的事情，《代码整洁之道》建议的第一篇就是如何进行好的命名</p>
+<a id="more"></a>
+
+<h2 id="css杂项-命名，书写顺序，调试"><a href="#css杂项-命名，书写顺序，调试" class="headerlink" title="css杂项(命名，书写顺序，调试)"></a>css杂项(命名，书写顺序，调试)</h2><ul>
+<li><h3 id="BEM"><a href="#BEM" class="headerlink" title="BEM"></a>BEM</h3><p><code>BEM</code>是模块（Block）、元素（Element）、修饰符（Modifier）的简写。</p>
+<p><code>BEM</code> 是一种组件架构的命名方法，它的基本思想是将<code>Html</code>元素划分成独立的组件，然后用简单的规则链接起来，开发时不用担心不会取名字了，同时后期维护和多人协作上好处大大的。</p>
+<p>其命名规则如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Block - 模块，名字的单词之间用 &#96;-&#96; 符号连接</span><br><span class="line">Element - 元素，模块中的子元素，用 &#96;__&#96; 符号连接</span><br><span class="line">Modifier - 修饰符，表示父元素或子元素的其他形态，用 &#96;--&#96; 符号连接</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>优势</p>
+<p>在没用 BEM 之前，我们可能会这样组织 CSS 类名：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Common命名的 Search Bar 模块 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"search-bar"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"input"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- / input 输入框 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- / button 搜索按钮 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- E Search Bar 模块 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>  用 BEM 命名重写之后：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- BEM命名的 Search Bar 模块 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"search-bar"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"search-form__input"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- / input 输入框子元素 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"search-form__button"</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- / button 搜索按钮子元素 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- E Search Bar 模块 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>有对比高下立判~ 通常面试问的语义化(作用与实践)，这样就达到了，最终目的是减少代码阅读成本。</p>
+<ul>
+<li><p>缺陷</p>
+<p>优点也是缺点，当<code>HTML</code>元素层级繁多时，会使得命名越来越长，那样的话，文件会变得臃肿不堪，反而违背了我们的初心。乱七八糟的<code>HTML</code>谁会愿意看？</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><h3 id="姓氏命名法"><a href="#姓氏命名法" class="headerlink" title="姓氏命名法"></a>姓氏命名法</h3><p>为了进一步简化 CSS 的命名，采用<strong>凹凸实验室团队</strong>推广的姓氏命名法。 感谢凹凸大大们~</p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/3/6/161f8ff1517a16c9?w=1442&h=682&f=jpeg&s=61130" alt="img"></p>
+</li>
+</ul>
+<p>  我们并不需要把每个元素的全部名称带上来表明主次关系。就像这份族谱一样，他的孩子只需要保留「贾」姓就可以了，名字是可以随便取的。</p>
+<p>  关联上 BEM 命名方法，姓氏命名法中的 Block 就是「姓」，Element 就是「名字」，而 Modifier 就表示这个人的某种状态，例如：「范 - - 冰冰 - - 很美」。这样就达到了取其精华，去其糟粕的作用。</p>
+<pre><code><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- am = app_market --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"am_answer"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"am_secheader"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"am_answer_list"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"am_answer_item"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"am_answer_itop"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"am_answer_imid"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:;"</span> <span class="attr">class</span>=<span class="string">"am_answer_ibtn"</span>&gt;</span>去围观<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></code></pre><p>   将 <strong>app_market</strong> 可以看成是「复姓」，将两个单词的首字母结合在一起形成一个新的「单姓」，如 <strong>am</strong> ；将item中的子项类名直接简写为「ixx」，如：<strong>itop</strong>。追求便利的副作用之一是牺牲了一点代码的可读性。但多半项目上的文档可以注明命名方法和其他书写规范，如果团队有约束，那一定是极佳的实践。</p>
+<p>  <strong>小结</strong></p>
+<ul>
+<li><p>ClassName 的命名应该尽量精短、明确，以英文单词命名，且全部字母为小写，避免意义不明的缩写</p>
+</li>
+<li><p>单词之间统一使用下划线 <code>_</code> 或 <code>-</code> 连接</p>
+</li>
+<li><p>定义样式模块，提高代码的可复用性</p>
+</li>
+</ul>
+<h2 id="CSS推荐书写"><a href="#CSS推荐书写" class="headerlink" title="CSS推荐书写"></a>CSS推荐书写</h2><ul>
+<li><p>推荐书写顺序</p>
+<ol>
+<li>位置属性(position, top, right, z-index, display, float等)</li>
+<li>大小(width, height, padding, margin)</li>
+<li>文字系列(font, line-height, letter-spacing, color- text-align等)</li>
+<li>背景(background, border等)</li>
+<li>其他(animation, transition等) </li>
+</ol>
+</li>
+<li><p>why this ?</p>
+<p>主要从浏览器的渲染机制方面来考虑，减少重绘与重排,提高性能。</p>
+<p>良好的习惯会使得你编写<code>css</code>代码时也更加清晰</p>
+</li>
+</ul>
+<hr>
+<p>拿到文件后浏览器的渲染流程为：</p>
+<p><img src="https://img2018.cnblogs.com/blog/612653/201905/612653-20190528155836708-1330513625.png" alt=""></p>
+<p>（1）浏览器解析html构建dom树，解析css构建cssom树即css rule tree：将html和css都解析成树形的数据结构； dom树的构建过程是一个深度遍历过程：当前节点的所有子节点都构建好后才会去构建当前节点的下一个兄弟节点。</p>
+<p>（2）构建render树：DOM树和cssom树合并之后形成render树。为了构建渲染树，浏览器大体完成了下列工作：从DOM树的根节点开始遍历每个可见节点。对于每个可见节点，为其找到适配的CSSOM规则并应用它们。发射可见节点，连同其内容和计算的样式。渲染树中包含了屏幕上所有可见内容及其样式信息。</p>
+<p>（3）布局render树：有了render树，浏览器已经知道网页中有哪些节点，各个节点的css定义以及它们的从属关系，接着就开始布局，计算出每个节点在屏幕中的位置和大小。(html采用了一种流式布局的布局模型，从上到下，从左到右顺序布局，布局的起点是从render树的根节点开始的，对应dom树的document节点，其初始位置为(0,0)，详细的布局过程为：每个renderer的宽度由父节点的renderer确定。父节点遍历子节点，确定子节点的位置(x,y)，调用子节点的layout方法确定其高度，父节点根据子节点的height, margin, padding确定自身的高度)。</p>
+<p>（4）渲染render树：浏览器已经知道啦哪些节点要显示，每个节点的css属性是什么，每个节点在屏幕中的位置是哪里。就进入啦最后一步，按照计算出来的规则，通过显卡把内容画在屏幕上。</p>
+<p>  DOM 的变化影响了元素的几何属性（宽和高）- 比如改变边框宽度或给段落增加文字，导致行数增加 – 浏览器需要重新计算元素的几何属性，同样其他元素的几何属性和位置也会因此受到影响。浏览器会使渲染树中受到影响的部分失效，并重新构建渲染树。这个过程称为 “重排（reflow）”。完成重排后，浏览器会重新绘制受影响的部分到屏幕中，该过程称为 “重绘（repaint）” </p>
+<hr>
+<p> 好了好了，照本宣科的东西终于没了，当然渲染过程没这么简单，这里也是借鉴一下啦。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">width</span>: 100<span class="selector-tag">px</span>; </span><br><span class="line"><span class="selector-tag">height</span>: 100<span class="selector-tag">px</span>; </span><br><span class="line"><span class="selector-tag">background-color</span>: <span class="selector-tag">red</span>; </span><br><span class="line"><span class="selector-tag">position</span>: <span class="selector-tag">absolute</span>;</span><br></pre></td></tr></table></figure>
+
+<p>当浏览器解析到position的时候突然发现该元素是绝对定位元素需要脱离文档流，而之前却是按照普通元素进行解析的，所以不得不重新渲染，解除该元素在文档中所占位置，然而由于该元素的占位发生变化，其他元素也可能会受到回流的影响而重新排位，最终导致（3）步骤花费时间太久而影响 。</p>
+<h2 id="CSS便捷调试法"><a href="#CSS便捷调试法" class="headerlink" title="CSS便捷调试法"></a>CSS便捷调试法</h2><ol>
+<li><p>控制台输入神秘代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span><br><span class="line">javascript: <span class="keyword">var</span> _q = !_q;<span class="built_in">document</span>.querySelectorAll(<span class="string">'*'</span>).forEach(<span class="function"><span class="params">q</span> =&gt;</span> q.style.outline = _q ? <span class="string">'1px solid red'</span> : <span class="string">''</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line">$$(<span class="string">'*'</span>).forEach(<span class="function"><span class="params">a</span>=&gt;</span>&#123;a.style.outline=<span class="string">'1px solid red'</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line">xxxxxxxxx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>插件： Keylines ( 一键+彩色线条 )</p>
+</li>
+<li><p>优雅的<code>xss</code></p>
+<ol>
+<li>打开书签管理页</li>
+<li>右上角三个点「添加新书签」</li>
+<li>名称随意，粘贴以下代码到网址中</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">javascript: (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> elements = <span class="built_in">document</span>.body.getElementsByTagName(<span class="string">'*'</span>);</span><br><span class="line">	<span class="keyword">var</span> items = [];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; elements.length; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (elements[i].innerHTML.indexOf(<span class="string">'html * &#123; outline: 1px solid red &#125;'</span>) != <span class="number">-1</span>) &#123;</span><br><span class="line">			items.push(elements[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (items.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; items.length; i++) &#123;</span><br><span class="line">			items[i].innerHTML = <span class="string">''</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="built_in">document</span>.body.innerHTML +=</span><br><span class="line">			<span class="string">'&lt;style&gt;html * &#123; outline: 1px solid red &#125;&lt;/style&gt;'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p> 然后我们就可以在任意网站上点击刚才创建的书签，内部会判断是否存在调试的 <code>style</code>。存在的话就删除，不存在的话就添加，通过这种方式我们就能很方便的通过这个技巧查看任意网页的布局了。 </p>
+</li>
+</ol>
+<p>效果如下：</p>
+<p><img src="http://m.qpic.cn/psb?/V14Ny1NJ1hfPZT/kIdOUSJYDH6NCqVQAq*dhPn2fnHwFebgM1p9XdBNvsE!/b/dDYBAAAAAAAA&bo=QQd6AgAAAAADBxw!&rf=viewer_4" alt=""></p>
+<h6 id="reference："><a href="#reference：" class="headerlink" title="reference："></a>reference：</h6><blockquote>
+<p>浏览器渲染过程与性能优化： <a href="https://juejin.im/post/59d489156fb9a00a571d6509" target="_blank" rel="noopener">https://juejin.im/post/59d489156fb9a00a571d6509</a> ，</p>
+<p>CSS书写顺序 ：<a href="https://www.cnblogs.com/xuepei/p/8961809.html" target="_blank" rel="noopener">https://www.cnblogs.com/xuepei/p/8961809.html</a> ，</p>
+<p>auto实验室 <a href="https://aotu.io/" target="_blank" rel="noopener">https://aotu.io/</a> </p>
+</blockquote>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://tsunamigg.github.io/2019/04/11/CSS-tips/>https://tsunamigg.github.io/2019/04/11/CSS-tips/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-28T22:21:55+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：May 28, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/css/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>css</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2019/05/19/Event%20loop/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Event loop</p>
+                <p class='content'>Event loop的粗浅认识
+
+
+事件轮询js是单线程的。其事件轮询由：同步任务，异步任务，macrotask（宏任务），microtask （微任务）组成。其执行过程如下：
+
+同步任务： 主...</p>
+              </a>
+            
+            
+              <a class='next' href='/2019/02/12/closure/'>
+                <p class='title'>闭包详解<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>结合《你不知道的JavaScript(上)》一书，详解闭包，理清关于闭包的三个问题，彻底认识闭包。
+
+
+
+闭包详解1. 什么是闭包？
+闭包的定义：当函数可以记住并访问所在的词法作用域时，就产生了...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'css tips',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow blur desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#css杂项-命名，书写顺序，调试"><span class="toc-text">css杂项(命名，书写顺序，调试)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BEM"><span class="toc-text">BEM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#姓氏命名法"><span class="toc-text">姓氏命名法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS推荐书写"><span class="toc-text">CSS推荐书写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS便捷调试法"><span class="toc-text">CSS便捷调试法</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:ganchao1996@gmai.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/tsunamiGG"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        as theme, total visits
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          times
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://tsunamigg.github.io/">Copyright © 2017-2020 tsunamigg</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
+    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

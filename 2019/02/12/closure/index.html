@@ -16,12 +16,12 @@
 
   <!-- 页面元数据 -->
   
-    <title>Event loop - Secret Garden</title>
+    <title>闭包详解 - Secret Garden</title>
   
-    <meta name="keywords" content="javascript event loop">
+    <meta name="keywords" content="javascript-native">
   
   
-    <meta name="description" content="Event loop的粗浅认识">
+    <meta name="description" content="结合《你不知道的JavaScript(上)》一书，详解闭包，理清关于闭包的三个问题，彻底认识闭包。">
   
 
   <!-- feed -->
@@ -251,8 +251,8 @@
         
           
   <h1 class="title">
-    <a href="/2019/05/19/Event%20loop/">
-      Event loop
+    <a href="/2019/02/12/closure/">
+      闭包详解
     </a>
   </h1>
 
@@ -282,7 +282,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：May 19, 2019</p>
+    <p>发布于：Feb 12, 2019</p>
   </a>
 </div>
 
@@ -293,13 +293,13 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>910 words</p>
+      <p>1.3k words</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>3 min</p>
+      <p>5 min</p>
     </a>
   </div>
 
@@ -323,57 +323,56 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <p>Event loop的粗浅认识</p>
+          <p>结合《你不知道的JavaScript(上)》一书，详解闭包，理清关于闭包的三个问题，彻底认识闭包。</p>
 <a id="more"></a>
 
-<h5 id="事件轮询"><a href="#事件轮询" class="headerlink" title="事件轮询"></a>事件轮询</h5><p>js是单线程的。其事件轮询由：同步任务，异步任务，macrotask（宏任务），microtask （微任务）组成。其执行过程如下：</p>
-<ul>
-<li>同步任务： 主线程上的任务，前一个完成后后一个执行。</li>
-<li>异步任务：不进入主线程，进入任务队列（task queue)中执行，等于macrotask。</li>
-<li>macrotask：任务队列的主体，同一个队列内的“先进先出”执行。不同的队列之间“先进后出”执行。</li>
-<li>microtask ：总在任务队列末尾执行，有新的microtask 继续加在末尾执行。</li>
-</ul>
-<p>执行过程：1.同步任务执行 2.  任务按队列依次执行 3.微任务按队列依次执行 4.重复1-3</p>
-<h5 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h5><p>对于<code>宏任务</code>和<code>微任务</code>的概念的理解，一开始确实是不太清楚的。</p>
-<p>先来说说<code>宏任务</code>，我们不妨这样来看，既然它是<strong>任务队列的主体</strong>，那么它一定由一个或者多个任务构成。抛开<code>JS</code>,[宏]这个字本身就不是单一的，在<code>CS</code>中的[宏]就是<strong>批量处理</strong>的意思。</p>
-<p>对于稍微了解过一点点<code>c</code>的人来说，应该都不陌生，辟如：编译预处理命令，宏定义等等。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 编译预处理命令</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="comment">// 宏定义</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.14</span></span><br></pre></td></tr></table></figure>
 
-<p>我将[编译预处理命令]（在编译之前进行的处理）就看做是[宏任务]，就是你写了一系列的前置操作，在后面的代码执行之前，这些宏任务全部需要执行完毕~</p>
-<p>稍微生活化一点点，比如那个中国互联网起步的时候，我的同学之间，喜欢用QQ等级作为谈资。所以我让我的<strong>电脑开机后自动登录QQ</strong>；或者现今5G来临之前，男生多半玩过的MOBA类游戏，就拿LOL中的瞎子<strong>摸眼R闪</strong>这种操作，你完全可以选一个拥有宏命令的鼠标，设置测试后一键完成这种“用双手成就你的梦想”等秀的飞起的操作；还有诸如乔碧萝之类的人士，开启直播推流之前，对自己<strong>直播效果的优化</strong>。这些都是所谓<strong>宏任务</strong>。</p>
-<p>至于<code>微任务</code>，相信聪明可爱的你一定能够举一反一，找到自己对其充分的理解~:smile:</p>
-<p>常见的宏任务和微任务：</p>
-<p><strong>宏任务</strong>：</p>
-<ul>
-<li>setTimeout</li>
-<li>setInterval</li>
-<li>setImmediate</li>
-<li>requestAnimationFrame</li>
-<li>I/O</li>
-<li>UI rendering</li>
-</ul>
-<p><strong>微任务</strong>：</p>
-<ul>
-<li>process.nextTick</li>
-<li>Promises</li>
-<li>Object.observe</li>
-<li>MutationObserver</li>
-</ul>
-<p><strong>执行图例</strong></p>
-<p>希望执行帧动画能让你对整个过程的理解清晰许多</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/1/18/16860ae5ad02f993?imageslim" alt=""></p>
-<h5 id="小练习1"><a href="#小练习1" class="headerlink" title="小练习1"></a><strong>小练习1</strong></h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise1'</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise2'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 浏览器输出顺序：</span></span><br><span class="line"><span class="comment">//script start</span></span><br><span class="line"><span class="comment">//script end</span></span><br><span class="line"><span class="comment">//promise1</span></span><br><span class="line"><span class="comment">//promise2</span></span><br><span class="line"><span class="comment">//setTimeout</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="小练习2"><a href="#小练习2" class="headerlink" title="小练习2"></a><strong>小练习2</strong></h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async1 start'</span>)</span><br><span class="line">    <span class="keyword">await</span> async2()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async1 end'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async2'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>)</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>) </span><br><span class="line">&#125;,<span class="number">0</span>)  </span><br><span class="line">async1();</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise1'</span>)</span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise2'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>)</span><br><span class="line"><span class="comment">// 浏览器输出顺序：</span></span><br><span class="line"><span class="comment">// script start</span></span><br><span class="line"><span class="comment">//async1 start</span></span><br><span class="line"><span class="comment">//async2</span></span><br><span class="line"><span class="comment">//promise1</span></span><br><span class="line"><span class="comment">//script end</span></span><br><span class="line"><span class="comment">//async1 end</span></span><br><span class="line"><span class="comment">//promise2</span></span><br><span class="line"><span class="comment">//setTimeout</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<ul>
-<li>await会将之后的代码抛入下一个执行队列，代码上的表现就是执行完await的会跳出函数体执行其他的同步任务。</li>
-<li>setTimeout的回调函数会进入下一个同步任务队列中。</li>
-<li>如果输出顺序不一致，是因为各大浏览器对异步的处理是不一样的，没什么奇怪的。</li>
-<li>另外，node环境输出顺序也有很大差异。</li>
-</ul>
+<h4 id="闭包详解"><a href="#闭包详解" class="headerlink" title="闭包详解"></a>闭包详解</h4><h5 id="1-什么是闭包？"><a href="#1-什么是闭包？" class="headerlink" title="1. 什么是闭包？"></a>1. 什么是闭包？</h5><blockquote>
+<p>闭包的定义：当函数可以记住并访问所在的词法作用域时，就产生了闭包，即使函数是在当前词法作用域之外执行。</p>
 </blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(a);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> bar;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> baz = foo();</span><br><span class="line">baz();</span><br><span class="line">-----&gt; <span class="string">'3'</span></span><br></pre></td></tr></table></figure>
+
+<p>这是一段非常经典的<code>闭包</code>代码，根据网上的说法，闭包的产生有三个条件：1. A函数内返回B函数。2.B函数调用了A函数的变量。3.B()。</p>
+<p>很神奇有没有？ 我们在外部环境访问了内部环境的变量。并且正常执行了<code>foo</code>的作用域会被销毁掉，垃圾回收机制也会使的释放掉内存空间。显然闭包阻止了这件事情的发生。</p>
+<h5 id="2-闭包产生的条件？"><a href="#2-闭包产生的条件？" class="headerlink" title="2.闭包产生的条件？"></a>2.闭包产生的条件？</h5><p>由于<code>bar</code>声明的位置，使其拥有涵盖了<code>foo</code>的内部作用域，当<code>bar</code>被调用后，会保持对<code>foo</code>作用域的引用，访问<code>a</code>变量。保持对外部作用域的引用，就会产生闭包，而不是非要返回函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">waiting</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(msg)</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line">waiting(<span class="string">'js'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>无论是什么其他的骚操作，只要你将内部函数传递到所在的<code>词法作用域</code>之外，他都会保持对内部作用域的引用，无论在哪里执行内部函数，都会创建闭包。这个例子中<code>setTimeout</code>保持对<code>waiting</code>的引用，在执行时也会创建闭包。</p>
+<h5 id="3-闭包的用途？"><a href="#3-闭包的用途？" class="headerlink" title="3. 闭包的用途？"></a>3. 闭包的用途？</h5><p>有时候，我们希望能够重用一个变量，并且其被保护起来不被污染篡改，就可以使用闭包。这种变量一般被称为<strong>私有变量</strong>或者<strong>局部变量</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//一个很经典的题</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(i)</span><br><span class="line">    &#125;, i* <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>嗯，我相信大多数搜集资料学习的人，都会清楚答案。 至于为什么，值得再复习一下。</p>
+<p>每次循环，我们都会挑出一份<code>i</code>用来输出，但因为<code>setTimeout</code>会在循环完成后执行，每次的<code>i</code>都在同一全局作用域下，于是后来居上，覆盖了前面的<code>i</code>，再由<code>setTimeout</code>执行时，就全是6了。</p>
+<p>怎么使得每次循环输出正确呢？ 我们只需要将每次的<code>i</code>变成一个私有变量，有独立的作用域，让其不在篡改就OK了。</p>
+<ul>
+<li>使用<code>IIFE</code></li>
+</ul>
+<p>这里引入来自<code>MDN</code>的释义。</p>
+<hr>
+<p><strong>IIFE</strong>（ 立即调用函数表达式）是一个在定义时就会立即执行的  <a href="https://developer.mozilla.org/en-US/docs/Glossary/JavaScript" target="_blank" rel="noopener">JavaScript</a> <a href="https://developer.mozilla.org/en-US/docs/Glossary/function" target="_blank" rel="noopener">函数</a>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    statements</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>这是一个被称为 <a href="https://developer.mozilla.org/en-US/docs/Glossary/Self-Executing_Anonymous_Function" target="_blank" rel="noopener">自执行匿名函数</a> 的设计模式，主要包含两部分。第一部分是包围在 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Grouping" target="_blank" rel="noopener"><code>圆括号运算符</code></a> <code>()</code> 里的一个匿名函数，这个匿名函数拥有独立的词法作用域。这不仅避免了外界访问此 IIFE 中的变量，而且又不会污染全局作用域。</p>
+<p>第二部分再一次使用 <code>()</code> 创建了一个立即执行函数表达式，JavaScript 引擎到此将直接执行函数。</p>
+<hr>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// IIFE方法</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span> (<span class="params">j</span>) </span>&#123;</span><br><span class="line">	    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(j)</span><br><span class="line">    	&#125;, j* <span class="number">1000</span>)</span><br><span class="line">    &#125;)(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里利用<code>IIFE</code>拥有独立的此法作用域的特性，将变量私有化，这样在<code>setTimeout</code>执行时就会得到正确输出。没错，好像就是利用闭包将每次的变量缓存起来，放在独立的内存中。</p>
+<ul>
+<li>使用ES6的<code>let</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// let方法</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(i)</span><br><span class="line">    &#125;, i* <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>let</code>会劫持块作用域，“劫持”就是把当前块作用域抢过来变为一个独立的，如果还不明白，请看下面代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">	<span class="keyword">let</span> j = i;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(j)</span><br><span class="line">    &#125;, j* <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>let</code> 遇见<code>{}</code>发生了奇妙的邂逅，于是他们“私奔”了~  在每次循环中都被声明了一次，所以每次循环中的<code>{}</code>内的变量都不干扰。<code>setTimeout</code>很高兴的执行了。</p>
+<p>摇晃一下你的小脑瓜，试想一下，如果我们将这些通过闭包产生的<strong>私有变量</strong>赋值给一个函数，你会联想到什么？</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = （<span class="function"><span class="keyword">function</span> <span class="title">myModule</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> myPublic = <span class="string">'web工程师的自我修养'</span>；</span><br><span class="line">    <span class="keyword">var</span> mywx = [<span class="string">'tangtang1996918'</span>];</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">joinMyPublic</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'join web工程师的自我修养'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">pushMywx</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(mywx.push(<span class="string">'your'</span>))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">		joinMyPublic: joinMyPublic,</span><br><span class="line">    	pushMywx: pushMywx</span><br><span class="line">    &#125;</span><br><span class="line">&#125;）（）；</span><br><span class="line"></span><br><span class="line">foo.joinMyPublic();</span><br><span class="line">foo.pushMywx();</span><br></pre></td></tr></table></figure>
+
+<p>是不是在项目中很常见？ 我靠，这就是模块机制啊，兄弟！！！把一些绝妙的方法都劫持过来放在自己的小空间里面，想拿来用就拿来用，岂不美哉？？？当然，现代的模块机制肯定没这么简单，嘻嘻。</p>
+<h5 id="4-强大的闭包"><a href="#4-强大的闭包" class="headerlink" title="4. 强大的闭包"></a>4. 强大的闭包</h5><p>认识了闭包，好好想想过去一天中你所写的代码，里面有闭包吗？这是一种日常且强大的模式。</p>
+<p>包管理器或者管理模块机制都会将<strong>模块定义</strong>和<strong>模块引入</strong>进行封装。封装到现在，已经变成了<code>import</code>和<code>export</code>或者其他的语法糖。</p>
 
           
             <div class='article_footer'>
@@ -410,7 +409,7 @@
           
         
           
-            <p>本文永久链接是：<a href=https://tsunamigg.github.io/2019/05/19/Event%20loop/>https://tsunamigg.github.io/2019/05/19/Event%20loop/</a></p>
+            <p>本文永久链接是：<a href=https://tsunamigg.github.io/2019/02/12/closure/>https://tsunamigg.github.io/2019/02/12/closure/</a></p>
           
         
       </blockquote>
@@ -461,10 +460,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-23T22:52:52+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-28T22:28:00+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：May 23, 2020</p>
+    <p>更新于：May 28, 2020</p>
   </a>
 </div>
 
@@ -473,7 +472,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/javascript-event-loop/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>javascript event loop</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/javascript-native/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>javascript-native</p></a></div>
 
 
         
@@ -493,23 +492,15 @@
         
           <div class="prev-next">
             
-              <a class='prev' href='/2019/05/28/ESmodule/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>ESmodule</p>
-                <p class='content'>ESmodule的标准化完成一定会掀起波澜~
-
-图说 ES Modules（转载译文）原文：ES modules: A cartoon deep-dive, Lin Clark
-ES modul...</p>
-              </a>
-            
-            
-              <a class='next' href='/2019/04/11/CSS-tips/'>
-                <p class='title'>css tips<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+              <a class='prev' href='/2019/04/11/CSS-tips/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>css tips</p>
                 <p class='content'>如何进行命名是一件看上去微不足道但其实对代码整洁度破坏很大的事情，《代码整洁之道》建议的第一篇就是如何进行好的命名
 
 
 css杂项(命名，书写顺序，调试)
 BEMBEM是模块（Block）、元素...</p>
               </a>
+            
             
           </div>
         
@@ -553,7 +544,7 @@ BEMBEM是模块（Block）、元素...</p>
 
   <script>
     window.subData = {
-      title: 'Event loop',
+      title: '闭包详解',
       tools: true
     }
   </script>
@@ -579,7 +570,7 @@ BEMBEM是模块（Block）、元素...</p>
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#事件轮询"><span class="toc-text">事件轮询</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#宏任务和微任务"><span class="toc-text">宏任务和微任务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#小练习1"><span class="toc-text">小练习1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#小练习2"><span class="toc-text">小练习2</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#闭包详解"><span class="toc-text">闭包详解</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-什么是闭包？"><span class="toc-text">1. 什么是闭包？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-闭包产生的条件？"><span class="toc-text">2.闭包产生的条件？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-闭包的用途？"><span class="toc-text">3. 闭包的用途？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-强大的闭包"><span class="toc-text">4. 强大的闭包</span></a></li></ol></li></ol>
     </div>
   </section>
 

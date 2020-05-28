@@ -16,12 +16,12 @@
 
   <!-- 页面元数据 -->
   
-    <title>Event loop - Secret Garden</title>
+    <title>chrome调试骚操作 - Secret Garden</title>
   
-    <meta name="keywords" content="javascript event loop">
+    <meta name="keywords" content="browser">
   
   
-    <meta name="description" content="Event loop的粗浅认识">
+    <meta name="description" content="解锁chrome调试黑科技">
   
 
   <!-- feed -->
@@ -251,8 +251,8 @@
         
           
   <h1 class="title">
-    <a href="/2019/05/19/Event%20loop/">
-      Event loop
+    <a href="/2020/05/28/Chrome-debugging-ways/">
+      chrome调试骚操作
     </a>
   </h1>
 
@@ -282,7 +282,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：May 19, 2019</p>
+    <p>发布于：May 28, 2020</p>
   </a>
 </div>
 
@@ -293,13 +293,13 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>910 words</p>
+      <p>1.2k words</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>3 min</p>
+      <p>5 min</p>
     </a>
   </div>
 
@@ -323,57 +323,132 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <p>Event loop的粗浅认识</p>
+          <p>解锁chrome调试黑科技</p>
 <a id="more"></a>
 
-<h5 id="事件轮询"><a href="#事件轮询" class="headerlink" title="事件轮询"></a>事件轮询</h5><p>js是单线程的。其事件轮询由：同步任务，异步任务，macrotask（宏任务），microtask （微任务）组成。其执行过程如下：</p>
-<ul>
-<li>同步任务： 主线程上的任务，前一个完成后后一个执行。</li>
-<li>异步任务：不进入主线程，进入任务队列（task queue)中执行，等于macrotask。</li>
-<li>macrotask：任务队列的主体，同一个队列内的“先进先出”执行。不同的队列之间“先进后出”执行。</li>
-<li>microtask ：总在任务队列末尾执行，有新的microtask 继续加在末尾执行。</li>
+<h3 id="chrome调试骚操作"><a href="#chrome调试骚操作" class="headerlink" title="chrome调试骚操作"></a>chrome调试骚操作</h3><ul>
+<li><strong>通用篇</strong>(Windows)</li>
 </ul>
-<p>执行过程：1.同步任务执行 2.  任务按队列依次执行 3.微任务按队列依次执行 4.重复1-3</p>
-<h5 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h5><p>对于<code>宏任务</code>和<code>微任务</code>的概念的理解，一开始确实是不太清楚的。</p>
-<p>先来说说<code>宏任务</code>，我们不妨这样来看，既然它是<strong>任务队列的主体</strong>，那么它一定由一个或者多个任务构成。抛开<code>JS</code>,[宏]这个字本身就不是单一的，在<code>CS</code>中的[宏]就是<strong>批量处理</strong>的意思。</p>
-<p>对于稍微了解过一点点<code>c</code>的人来说，应该都不陌生，辟如：编译预处理命令，宏定义等等。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 编译预处理命令</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="comment">// 宏定义</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.14</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>切换DevTools窗口的布局（下右）</p>
+<p>Ctrl + Shift + D</p>
+</li>
+<li><p>切换DevTools选项卡 (Element-NetWork-Audits)</p>
+<p>Ctrl + [ 或 ]： 向左和向右 </p>
+<p>Ctrl + 1 到 9：DevTools&gt;Settings&gt;Preferences&gt;<em>Appearance</em>中打开 (开启之后，浏览器网页选项卡也可以切换)</p>
+</li>
+<li><p>Styles数值调整</p>
+<ol>
+<li>Alt +上下箭头 0.1</li>
+<li>上下箭头 1</li>
+<li>Shfit+上下箭头 10</li>
+<li>Ctrl  +上下箭头 100</li>
+</ol>
+</li>
+<li><p>elements，logs， sources &amp; network 皆可使用 <code>Ctrl+F</code></p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/1/22/168747e72320ff3a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"> </p>
+</li>
+</ol>
+<ol start="5">
+<li><p>Element中的HTML可以直接<code>Ctrl+C</code>保存</p>
+</li>
+<li><p>copy(全局对象或者DOM or 一些太长的对象)，可直接复制到编辑器中查看。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; console板块</span><br><span class="line">window </span><br><span class="line"></span><br><span class="line">....blabllabla</span><br><span class="line"></span><br><span class="line">copy(window)</span><br><span class="line"></span><br><span class="line">Ctrl+V</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>debugger</strong></p>
+<ol>
+<li>越过下一个函数调用 :  F10、Ctrl + ‘ ;</li>
+<li>进入下一个函数调用 :  F11、Ctrl + ;</li>
+<li>跳出当前函数 :  Shift + F11、Ctrl + Shift + ; </li>
+<li>切换断点条件:  点击行号、Ctrl + B;</li>
+</ol>
+</li>
+</ol>
+<p>   只列举出来我认为很常用的，详见： <a href="https://developers.google.com/web/tools/chrome-devtools/shortcuts" target="_blank" rel="noopener">https://developers.google.com/web/tools/chrome-devtools/shortcuts</a> </p>
+<ul>
+<li><strong>Command篇</strong></li>
+</ul>
+<p> 打开<code>devtools</code>,  <code>[Ctrl]</code> + <code>[Shift]</code> + <code>[P]</code> (Mac： <code>[⌘]</code> + <code>[Shift]</code>+ <code>[P]</code> ) ,会进入这样的界面。</p>
+<p>   <img src="http://m.qpic.cn/psc?/V14Ny1NJ1hfPZT/T0po5IVZeaNliPGRfxFJTjWkbJLQdBzTBxncRVLU4zX.9Ke.VrR..ZxL4bIp2huDYS16YS*5dRRJqyX2aBXDwoKFRkHT52qkDU57QASbzfU!/b&bo=MQRdAzEEXQMDCSw!&rf=viewer_4" alt="img"> </p>
+<p><strong>截屏方式</strong></p>
+<p>没错，有好几种截屏的方式，但微信截图他不香吗？</p>
+<p>不不不，第三方工具只能截满你的屏幕尺寸大小，比如：web长度大于1080，而你要看到所有的element?</p>
+<p>选择上图中的： full size 即可。 长图示例预警:</p>
+<p> <img src="http://m.qpic.cn/psc?/V14Ny1NJ1hfPZT/T0po5IVZeaNliPGRfxFJTs8xvNC3*1c1Y3tKKn0tO2reR6MOmfEeeWx1XFH1EyE5UFFeibbtOSgyl6N7.JfOwD6DYXIflRFDXmPzLnACM9k!/b&bo=gAI1C28HUiEDCYs!&rf=viewer_4" alt="img"> </p>
+<p> <strong>切换主题</strong></p>
+<p>当你在晚上工作，讨厌白闪闪的<code>devtools</code>,Commond输入： theme。</p>
+<p>里面还有很多很多功能~  模块如下：</p>
+<p> <img src="https://user-gold-cdn.xitu.io/2018/12/11/1679a2e13926d71b?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"> </p>
+<ul>
+<li><p>Snippets</p>
+<p>位于<code>Sources</code>模块的，很常用的除了<code>page</code>来看一些err和源码。还有一个<code>snippets</code>也很实用。</p>
+<p>1.新建代码块</p>
+<p> <img src="http://m.qpic.cn/psc?/V14Ny1NJ1hfPZT/T0po5IVZeaNliPGRfxFJTgNHP3DU2sEDrYpYWTYc6g0yX*aY3DfX.4qoOFPGiXmS35FuIu*5fyXZpnF1tKj9hHpVjNOu.ZeiXOh6EtpjxPo!/b&bo=2wRKA9sESgMDCSw!&rf=viewer_4" alt="img"> </p>
+</li>
+</ul>
+<p>  2.执行(!+代码块序号)</p>
+<p>   <img src="http://m.qpic.cn/psc?/V14Ny1NJ1hfPZT/T0po5IVZeaNliPGRfxFJTirodoWVtU2LOMPMI2PY42IPEjbj731rWnkjVax6wWsgxxJ1PlWD6kBiER8jktkY6nBszV8LZT63H0Gz..IolNM!/b&bo=2wRKA9sESgMDCSw!&rf=viewer_4" alt="img"> </p>
+<p>这样就可以输出对应代码块的结果啦。 可以理解为给你开了个沙箱，所以你可以<strong>引入其他来源代码块来执行</strong>。</p>
+<p>测试证明，清cookie ，清缓存，关闭浏览器都不会导致snippets丢失，而且是跨域名全局可用，应该是强存储于浏览器上的 。有点硬~</p>
+<hr>
+<blockquote>
+<p>Date: 2020/2/28</p>
+</blockquote>
+<ul>
+<li><p><code>Console</code>模块篇</p>
+<p><strong><code>$</code>符号</strong></p>
+<p>1.调试的过程中，你经常会通过打印查看一些变量的值，但如果你想看一下上次执行的结果呢？再输一遍表达式吗？</p>
+<p>这时候 <code>$_</code> 就派上了用场，<code>$_</code> 是对上次执行的结果的 <strong>引用</strong> ：</p>
+<p> <img src="https://user-gold-cdn.xitu.io/2018/12/7/16785d333e7c1d7f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"> </p>
+</li>
+</ul>
+<ol start="2">
+<li><p><code>$</code> 变量在 <code>console</code> 中就是对这一大串函数 <code>document.querySelector</code> 的别名。</p>
+<p><code>$$</code>变量执行 <code>document.QuerySelectorAll</code> 并且它返回的是：一个节点的 <strong>数组</strong> ，而不是一个 <code>Node list</code></p>
+<p>例如：<code>Array.from(document.querySelectorAll(&#39;div&#39;)) === $$(&#39;div&#39;)</code>  。</p>
+<p>查找<code>Node</code>可比对着<code>Element</code>看强太多啦！</p>
+</li>
+</ol>
+<p>   <img src="http://m.qpic.cn/psc?/V14Ny1NJ1hfPZT/T0po5IVZeaNliPGRfxFJTlO30ye.GCHcUg72OjXZ3D*K3xdVSMvsrvj9jVOjebAZHM2bIfbNer5Mpx165ndHiU5WkZLdWYxPTOUfbwj4fFs!/b&bo=MQTVAjEE1QIDByI!&rf=viewer_4" alt="img"> </p>
+<p>   <strong>结合起来就有一个很妙的css调试法~</strong></p>
+   <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Console输入！</span></span><br><span class="line">$$(<span class="string">'*'</span>).forEach(<span class="function"><span class="params">item</span>=&gt;</span>&#123;item.style.outline=<span class="string">'1px solid red'</span>&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>我将[编译预处理命令]（在编译之前进行的处理）就看做是[宏任务]，就是你写了一系列的前置操作，在后面的代码执行之前，这些宏任务全部需要执行完毕~</p>
-<p>稍微生活化一点点，比如那个中国互联网起步的时候，我的同学之间，喜欢用QQ等级作为谈资。所以我让我的<strong>电脑开机后自动登录QQ</strong>；或者现今5G来临之前，男生多半玩过的MOBA类游戏，就拿LOL中的瞎子<strong>摸眼R闪</strong>这种操作，你完全可以选一个拥有宏命令的鼠标，设置测试后一键完成这种“用双手成就你的梦想”等秀的飞起的操作；还有诸如乔碧萝之类的人士，开启直播推流之前，对自己<strong>直播效果的优化</strong>。这些都是所谓<strong>宏任务</strong>。</p>
-<p>至于<code>微任务</code>，相信聪明可爱的你一定能够举一反一，找到自己对其充分的理解~:smile:</p>
-<p>常见的宏任务和微任务：</p>
-<p><strong>宏任务</strong>：</p>
+<p>   效果如下：</p>
+<p>   <img src="http://m.qpic.cn/psb?/V14Ny1NJ1hfPZT/kIdOUSJYDH6NCqVQAq*dhPn2fnHwFebgM1p9XdBNvsE!/b/dDYBAAAAAAAA&bo=QQd6AgAAAAADBxw!&rf=viewer_4" alt=""></p>
+<p> <strong><code>custom formatter</code> 自定义格式转换器</strong></p>
+<p>我们习惯使用 <code>DevTools</code> 的 <code>console</code> 默认对 <code>object</code> 的转换(例如上图)，但有时候我们想用与众不同的方式来处理。 那我们就可以自定义输出对象的函数 <code>custom formatter</code>~</p>
+<blockquote>
+<p>具体的官网介绍在这里：  <a href="https://docs.google.com/document/d/1FTascZXT9cxfetuPRT2eXPQKXui4nWFivUnS_335T3U/preview" target="_blank" rel="noopener">https://docs.google.com/document/d/1FTascZXT9cxfetuPRT2eXPQKXui4nWFivUnS_335T3U/preview</a> </p>
+</blockquote>
+<p>开启方法：打开<code>devtools</code>,按下<code>F1</code>。勾选如下~</p>
+<p> <img src="https://www.mattzeunert.com/img/blog/custom-formatters/custom-formatters-setting.png" alt="Custom formatters checkbox in Chrome"> </p>
+<p><code>formatter</code>： 它是一个对象，包含三个方法：</p>
 <ul>
-<li>setTimeout</li>
-<li>setInterval</li>
-<li>setImmediate</li>
-<li>requestAnimationFrame</li>
-<li>I/O</li>
-<li>UI rendering</li>
+<li><code>header</code> : 处理如何展示在 <code>console</code> 的日志中的主要部分。</li>
+<li><code>hasbody</code> : 如果你想显示一个用来展开对象的 <code>▶</code> 箭头，返回 <code>true</code></li>
+<li><code>body</code> : 定义将会被显示在展开部分的内容中。</li>
 </ul>
-<p><strong>微任务</strong>：</p>
-<ul>
-<li>process.nextTick</li>
-<li>Promises</li>
-<li>Object.observe</li>
-<li>MutationObserver</li>
-</ul>
-<p><strong>执行图例</strong></p>
-<p>希望执行帧动画能让你对整个过程的理解清晰许多</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/1/18/16860ae5ad02f993?imageslim" alt=""></p>
-<h5 id="小练习1"><a href="#小练习1" class="headerlink" title="小练习1"></a><strong>小练习1</strong></h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>);</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise1'</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise2'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 浏览器输出顺序：</span></span><br><span class="line"><span class="comment">//script start</span></span><br><span class="line"><span class="comment">//script end</span></span><br><span class="line"><span class="comment">//promise1</span></span><br><span class="line"><span class="comment">//promise2</span></span><br><span class="line"><span class="comment">//setTimeout</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="小练习2"><a href="#小练习2" class="headerlink" title="小练习2"></a><strong>小练习2</strong></h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async1 start'</span>)</span><br><span class="line">    <span class="keyword">await</span> async2()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async1 end'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async2'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>)</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>) </span><br><span class="line">&#125;,<span class="number">0</span>)  </span><br><span class="line">async1();</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise1'</span>)</span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise2'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>)</span><br><span class="line"><span class="comment">// 浏览器输出顺序：</span></span><br><span class="line"><span class="comment">// script start</span></span><br><span class="line"><span class="comment">//async1 start</span></span><br><span class="line"><span class="comment">//async2</span></span><br><span class="line"><span class="comment">//promise1</span></span><br><span class="line"><span class="comment">//script end</span></span><br><span class="line"><span class="comment">//async1 end</span></span><br><span class="line"><span class="comment">//promise2</span></span><br><span class="line"><span class="comment">//setTimeout</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.devtoolsFormatters = [&#123;</span><br><span class="line">    header: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="string">"div"</span>, &#123;&#125;, obj.toString()]</span><br><span class="line">    &#125;,</span><br><span class="line">    hasBody: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<ul>
-<li>await会将之后的代码抛入下一个执行队列，代码上的表现就是执行完await的会跳出函数体执行其他的同步任务。</li>
-<li>setTimeout的回调函数会进入下一个同步任务队列中。</li>
-<li>如果输出顺序不一致，是因为各大浏览器对异步的处理是不一样的，没什么奇怪的。</li>
-<li>另外，node环境输出顺序也有很大差异。</li>
-</ul>
+<p>其中<code>header</code> 方法返回了一个 <a href="http://www.jsonml.org/" target="_blank" rel="noopener">JsonML</a> (注： <code>JsonML</code> : <code>JSON Markup Language</code> - <code>JSON</code> 标记语言) 数组，由这些组成：</p>
+<ol>
+<li>标签名</li>
+<li>属性对象</li>
+<li>内容 (文本值或者其他元素)</li>
+</ol>
 </blockquote>
+<p>让我们看看发生了什么：</p>
+<p> <img src="https://miro.medium.com/max/884/1*NnDpCTFRTiXg8K6HZS9rng.gif" alt="img"> </p>
+<p><strong>amazing</strong></p>
+<p>现有好几种 <code>custom formatter</code> 可供选择，例如：你可以在这个 <a href="https://github.com/andrewdavey/immutable-devtools" target="_blank" rel="noopener">immutable-devtools </a>仓库中找到对于 <a href="https://facebook.github.io/immutable-js/" target="_blank" rel="noopener">Immutable.js</a> 结构的完美展示。但你同样可以自己造一个。</p>
+<p>如果你遇到结构不寻常的对象时，或大量的日志(最好避免这样的情况，但是有时候很有用)而你想从中做区分时，你可以采用 <code>custom formatter</code> 来处理。</p>
+<p>一个很实用的窍门：直接将你不关心，不需要区别对待的对象过滤出来，直接在 <code>header</code> 方法里面 <code>return null</code>。让 <code>DevTools</code> 使用默认的格式化方式来处理这些值。</p>
+<p>让我们来找点乐子，让开让开，我要装逼啦！</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.devtoolsFormatters = [&#123;</span><br><span class="line">    header: <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (!obj.__clown) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">delete</span> obj.__clown;</span><br><span class="line">      <span class="keyword">const</span> style = <span class="string">`</span></span><br><span class="line"><span class="string">        color: red;</span></span><br><span class="line"><span class="string">        border: dotted 2px gray;</span></span><br><span class="line"><span class="string">        border-radius: 4px;</span></span><br><span class="line"><span class="string">        padding: 5px;</span></span><br><span class="line"><span class="string">      `</span>;</span><br><span class="line">      <span class="keyword">const</span> content = <span class="string">`🤡 <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(obj, <span class="literal">null</span>, <span class="number">2</span>)&#125;</span>`</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="string">'div'</span>, &#123;style&#125;, content]</span><br><span class="line">      &#125; <span class="keyword">catch</span> (err) &#123; <span class="comment">// for circular structures</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;  <span class="comment">// use the default formatter</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    hasBody: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.clown = <span class="function"><span class="keyword">function</span> (<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(&#123;...obj, <span class="attr">__clown</span>: <span class="literal">true</span>&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(&#123;<span class="attr">message</span>: <span class="string">'hello!'</span>&#125;);   <span class="comment">// normal log</span></span><br><span class="line"><span class="built_in">console</span>.clown(&#123;<span class="attr">message</span>: <span class="string">'hello!'</span>&#125;); <span class="comment">// a silly log</span></span><br></pre></td></tr></table></figure>
+
+<p> <img src="http://m.qpic.cn/psc?/V14Ny1NJ1hfPZT/T0po5IVZeaNliPGRfxFJTmN5OIMlgjK19VsPJ2c8GD8z79Ko0f833BFLviAzMAIr9SrXhgMy560daCVlLxjibatifncFYU5ZbqlSbqjtLXc!/b&bo=MQTbAzEE2wMRBzA!&rf=viewer_4" alt="img"> </p>
+<p>可以在<code>massage</code>里面加入一个<code>emoji</code>表情。当然，**他的实际作用是<code>tag</code>，可以通过不同的<code>tag</code>来表示不同的项目，便于区分~</p>
 
           
             <div class='article_footer'>
@@ -410,7 +485,7 @@
           
         
           
-            <p>本文永久链接是：<a href=https://tsunamigg.github.io/2019/05/19/Event%20loop/>https://tsunamigg.github.io/2019/05/19/Event%20loop/</a></p>
+            <p>本文永久链接是：<a href=https://tsunamigg.github.io/2020/05/28/Chrome-debugging-ways/>https://tsunamigg.github.io/2020/05/28/Chrome-debugging-ways/</a></p>
           
         
       </blockquote>
@@ -461,10 +536,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-23T22:52:52+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-28T22:29:19+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：May 23, 2020</p>
+    <p>更新于：May 28, 2020</p>
   </a>
 </div>
 
@@ -473,7 +548,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/javascript-event-loop/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>javascript event loop</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/browser/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>browser</p></a></div>
 
 
         
@@ -493,22 +568,14 @@
         
           <div class="prev-next">
             
-              <a class='prev' href='/2019/05/28/ESmodule/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>ESmodule</p>
-                <p class='content'>ESmodule的标准化完成一定会掀起波澜~
-
-图说 ES Modules（转载译文）原文：ES modules: A cartoon deep-dive, Lin Clark
-ES modul...</p>
-              </a>
             
-            
-              <a class='next' href='/2019/04/11/CSS-tips/'>
-                <p class='title'>css tips<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>如何进行命名是一件看上去微不足道但其实对代码整洁度破坏很大的事情，《代码整洁之道》建议的第一篇就是如何进行好的命名
+              <a class='next' href='/2020/05/23/reload/'>
+                <p class='title'>走好下一步<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>抛下过去，走向未来，成就自己
 
 
-css杂项(命名，书写顺序，调试)
-BEMBEM是模块（Block）、元素...</p>
+前言大三下学期，觉得自己不能就此沉沦。想着自己好歹算个计算机沾边的专业，去找一份编程相关的工作，应该还是有搞头的。
+在图书馆看到一本《web工程师的自我修养》，...</p>
               </a>
             
           </div>
@@ -553,7 +620,7 @@ BEMBEM是模块（Block）、元素...</p>
 
   <script>
     window.subData = {
-      title: 'Event loop',
+      title: 'chrome调试骚操作',
       tools: true
     }
   </script>
@@ -579,7 +646,7 @@ BEMBEM是模块（Block）、元素...</p>
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#事件轮询"><span class="toc-text">事件轮询</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#宏任务和微任务"><span class="toc-text">宏任务和微任务</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#小练习1"><span class="toc-text">小练习1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#小练习2"><span class="toc-text">小练习2</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#chrome调试骚操作"><span class="toc-text">chrome调试骚操作</span></a></li></ol>
     </div>
   </section>
 

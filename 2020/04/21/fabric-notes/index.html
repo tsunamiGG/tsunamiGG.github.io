@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>fabric notes - Secret Garden</title>
+  
+    <meta name="keywords" content="fabric canvas notes">
+  
+  
+    <meta name="description" content="一次 fabric+ fabric customiseControls 实践">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+          
+            VOLANTIS <b><sup style='color:#3AA757'>2.6.6</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2020/04/21/fabric-notes/">
+      fabric notes
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://tsunamigg.github.io/" rel="nofollow">
+    <img src="https://avatars2.githubusercontent.com/u/37109219?s=460&u=72c6da1fb1e7512a0f73dd255dd2b85998682a99&v=4">
+    <p>tsunami</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Apr 21, 2020</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>1.7k words</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>7 min</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>一次 fabric+ fabric customiseControls 实践</p>
+<a id="more"></a>
+
+<h3 id="制作图片涂鸦画板-微信浏览器"><a href="#制作图片涂鸦画板-微信浏览器" class="headerlink" title="制作图片涂鸦画板(微信浏览器)"></a>制作图片涂鸦画板(微信浏览器)</h3><ol>
+<li><h5 id="fabric-customiseControls简介"><a href="#fabric-customiseControls简介" class="headerlink" title="fabric+customiseControls简介"></a>fabric+customiseControls简介</h5></li>
+</ol>
+<p>fabric是一个canvas库，其核心就是将canvasAPI转换为对象模型，让我们更加便捷的使用。</p>
+<p>customiseControls则是基于fabric的插件，可为新建的fabric对象设置角标，并为其提供一系列事件：drag，</p>
+<p>scale，rotate，remove，或者自定义事件。</p>
+<blockquote>
+<p>fabric:<a href="https://github.com/fabricjs/fabric.js" target="_blank" rel="noopener">https://github.com/fabricjs/fabric.js</a></p>
+<p>customiseControls：<a href="https://github.com/pixolith/fabricjs-customise-controls-extension" target="_blank" rel="noopener">https://github.com/pixolith/fabricjs-customise-controls-extension</a></p>
+</blockquote>
+<ol start="2">
+<li><h5 id="效果说明-模糊的图片是故意的"><a href="#效果说明-模糊的图片是故意的" class="headerlink" title="效果说明(模糊的图片是故意的)"></a>效果说明(模糊的图片是故意的)</h5></li>
+</ol>
+<ul>
+<li>用户涂鸦环节：</li>
+</ul>
+<p><img src="https://i.loli.net/2020/05/16/fEbJB9A8orHQycX.png" alt="1.png"></p>
+<p>涂鸦的构成 = 1.城市背景图 + 贴纸图片素材 + 文字图片素材</p>
+<p>1点击缩略图切换，切换时2，3不变化。 2，3是可选中后可拖拽，拖拽时不影响其他图片素材，选中之后出现四个角的角标，角标的事件为放大，缩小，旋转，移除。</p>
+<ul>
+<li>生成环节</li>
+</ul>
+<p><img src="https://i.loli.net/2020/05/16/jCVOFeaHRX7JldT.png" alt="2.png"></p>
+<p>根据用户涂鸦的结果，生成一张带有其他信息的海报(长按保存到手机相册)，比如： 用户地理位置信息，当前参与人数，二维码，昵称，头像等等</p>
+<ol start="3">
+<li><h4 id="开撸"><a href="#开撸" class="headerlink" title="开撸"></a>开撸</h4></li>
+</ol>
+<p>开撸之前还是梳理一下重点和优化点：</p>
+<p>A.涂鸦画板的交互(重点)</p>
+<p>B.精准生成海报(重点)和海报的清晰度(优化点)</p>
+<p><strong>A部分</strong>： 用户选择对应背景或者涂鸦素材后有正确相应，设置边界值</p>
+<p><strong>1.初始化fabric插件</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置部分角标不可见</span></span><br><span class="line">fabric.Object.prototype.setControlsVisibility(&#123;</span><br><span class="line">  ml: <span class="literal">false</span>,</span><br><span class="line">  mr: <span class="literal">false</span>,</span><br><span class="line">  mtr: <span class="literal">false</span>,</span><br><span class="line">  mt: <span class="literal">false</span>,</span><br><span class="line">  mb: <span class="literal">false</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 角标事件设置</span></span><br><span class="line">fabric.Canvas.prototype.customiseControls(&#123;</span><br><span class="line">  br: &#123;</span><br><span class="line">    action: <span class="string">"rotate"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  bl: &#123;</span><br><span class="line">    action: <span class="string">'scale'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  tl: &#123;</span><br><span class="line">    action: <span class="function"><span class="keyword">function</span> <span class="title">action</span>(<span class="params">e, target</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> canvas = target.canvas;</span><br><span class="line">      canvas.remove(target).renderAll();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  tr: &#123;</span><br><span class="line">    action: <span class="string">'scale'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 禁用选框</span></span><br><span class="line">fabric.Object.prototype.transparentCorners = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 角标基础设置</span></span><br><span class="line">fabric.Object.prototype.customiseCornerIcons(&#123;</span><br><span class="line">  settings: &#123;</span><br><span class="line">    borderColor: <span class="string">'#fff'</span>,</span><br><span class="line">    cornerSize: <span class="number">20</span>,</span><br><span class="line">    cornerBackgroundColor: <span class="string">'transparent'</span>,</span><br><span class="line">    cornerPadding: <span class="number">5</span></span><br><span class="line">  &#125;,</span><br><span class="line">  br: &#123;</span><br><span class="line">    action: <span class="string">"rotate"</span>,</span><br><span class="line">    icon: <span class="string">'./imgs/icons/rotate.svg'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  bl: &#123;</span><br><span class="line">    action: <span class="string">'scale'</span>,</span><br><span class="line">    icon: <span class="string">'./imgs/icons/resize.svg'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  tl: &#123;</span><br><span class="line">    icon: <span class="string">'./imgs/icons/remove.svg'</span>,</span><br><span class="line">    action: <span class="function"><span class="keyword">function</span> <span class="title">action</span>(<span class="params">e, target</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> canvas = target.canvas;</span><br><span class="line">      canvas.remove(target).renderAll();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  tr: &#123;</span><br><span class="line">    action: <span class="string">'scale'</span>,</span><br><span class="line">    icon: <span class="string">'./imgs/icons/resize.svg'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  board.renderAll();</span><br><span class="line">&#125;);</span><br><span class="line"><span class="keyword">var</span> ww = $(<span class="built_in">window</span>).width();</span><br><span class="line"><span class="keyword">var</span> wh = $(<span class="built_in">window</span>).height();</span><br><span class="line"><span class="keyword">var</span> board = <span class="keyword">new</span> fabric.Canvas(<span class="string">'drawBoard'</span>, &#123;</span><br><span class="line">  backgroundColor: <span class="string">'transparent'</span>,</span><br><span class="line">  width: (ww * <span class="number">0.92</span></span><br><span class="line">  height: (wh * <span class="number">0.67</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>2.添加用户点击交互(click -&gt; 新增对应素材至画板 或者切换城市背景)</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fabricItemList = [];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置图片背景</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setImagebg</span>(<span class="params">imgSrc</span>) </span>&#123;</span><br><span class="line">  fabric.Image.fromURL(imgSrc, <span class="function"><span class="keyword">function</span> (<span class="params">img</span>) </span>&#123;</span><br><span class="line">    img.set(&#123;</span><br><span class="line">      scaleX: board.width / img.width,</span><br><span class="line">      scaleY: board.height / img.height</span><br><span class="line">    &#125;);</span><br><span class="line">    board.setBackgroundImage(img, board.renderAll.bind(board));</span><br><span class="line">    board.requestRenderAll();</span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    crossOrigin: <span class="string">'anonymous'</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置自定义图片</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setPicture</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.customiseCornerIcons(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    board.renderAll();</span><br><span class="line">  &#125;);</span><br><span class="line">  fabricItemList.push(obj);</span><br><span class="line">  board.add(obj);</span><br><span class="line">  board.setActiveObject(obj);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成文字对象</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addText</span>(<span class="params">ctext</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> color = <span class="built_in">arguments</span>.length &gt; <span class="number">1</span> &amp;&amp; <span class="built_in">arguments</span>[<span class="number">1</span>] !== <span class="literal">undefined</span> ? <span class="built_in">arguments</span>[<span class="number">1</span>] : <span class="string">"#fff"</span>;</span><br><span class="line">  <span class="keyword">var</span> textObj = <span class="keyword">new</span> fabric.Text(ctext, &#123;</span><br><span class="line">    fontFamily: <span class="string">"PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif"</span>,</span><br><span class="line">    fontSize: <span class="number">30</span>,</span><br><span class="line">    top: <span class="number">150</span>,</span><br><span class="line">    left: <span class="number">150</span>,</span><br><span class="line">    originX: <span class="string">'center'</span>,</span><br><span class="line">    originY: <span class="string">'center'</span>,</span><br><span class="line">    fill: color</span><br><span class="line">  &#125;);</span><br><span class="line">  setPicture(textObj);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成图片对象</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">featImg</span>(<span class="params">imgSrc, scale</span>) </span>&#123;</span><br><span class="line">  fabric.Image.fromURL(imgSrc, <span class="function"><span class="keyword">function</span> (<span class="params">img</span>) </span>&#123;</span><br><span class="line">    img.set(&#123;</span><br><span class="line">      scaleX: scale,</span><br><span class="line">      scaleY: scale,</span><br><span class="line">      angle: <span class="number">0</span>,</span><br><span class="line">      left: <span class="built_in">Math</span>.random() &lt; <span class="number">0.5</span> ? <span class="built_in">Math</span>.random() * <span class="number">50</span> + <span class="number">110</span> : -<span class="built_in">Math</span>.random() * <span class="number">50</span> + <span class="number">110</span>,</span><br><span class="line">      top: <span class="built_in">Math</span>.random() &lt; <span class="number">0.5</span> ? <span class="built_in">Math</span>.random() * <span class="number">50</span> + <span class="number">120</span> : -<span class="built_in">Math</span>.random() * <span class="number">50</span> + <span class="number">120</span>,</span><br><span class="line">      hasControls: <span class="literal">true</span>,</span><br><span class="line">      borderColor: <span class="string">'#fff'</span></span><br><span class="line">    &#125;);</span><br><span class="line">    setPicture(img);</span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    crossOrigin: <span class="string">'anonymous'</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.生成画板图</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> drawImg = board.toDataURL();   </span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成后复原fabric对象</span></span><br><span class="line">fabricItemList.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">item</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> board.remove(item);</span><br><span class="line">&#125;);</span><br><span class="line">fabricItemList = [];</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>B部分</strong>： 如何根据设计稿精准绘制海报（重点）？</p>
+<p>1.使用现有成熟的方案： canvas2Image + html2canvas(高质量前端快照方案：来自页面的「自拍」)</p>
+<p>详见网易云音乐团队的文章：<a href="https://juejin.im/post/5df2e8ab6fb9a0163770816d#heading-15" target="_blank" rel="noopener">https://juejin.im/post/5df2e8ab6fb9a0163770816d#heading-15</a></p>
+<p>2.自己瞎折腾</p>
+<p>最终选择：*<em>自己瞎折腾 *</em>    </p>
+<p>心路历程：</p>
+<p>？？？？作者是不是脑子有病(小声BB)…</p>
+<p>为什么我要做费力不讨好的事情？ 现成的库他不香吗？</p>
+<p>原因在于ios手机在授权后的：<strong>微信浏览器的白条问题</strong></p>
+<blockquote>
+<p>白条会使得整个可视区的DOM被向上顶一部分距离…</p>
+<p>整个网上的方案都在现有资源下都不能好好解决，<a href="https://developers.weixin.qq.com/community/develop/doc/0000a09f840910386ee69390251c00" target="_blank" rel="noopener">https://developers.weixin.qq.com/community/develop/doc/0000a09f840910386ee69390251c00</a></p>
+</blockquote>
+<p>白条问题使得在使用前面的「自拍」方案时，生成的海报会错位…结果惨不忍睹！</p>
+<p>html2canvas是根据遍历DOM样式信息来生成的，而且在遍历过程中，<strong>它会重新加载所有资源</strong>(在network自己看)，如果遇到质量较高或者像这样的数量的图片，会出现绘制空白的可能。</p>
+<p>自己瞎折腾的结果：</p>
+<p>根据canvas的drawimage写了个生成图的js，写的垃圾，大佬勿喷…<br><a href="https://github.com/tsunamiGG/utils/blob/master/makePoster.js。" target="_blank" rel="noopener">https://github.com/tsunamiGG/utils/blob/master/makePoster.js。</a></p>
+<p>大概思路： </p>
+<p>canvas图层堆叠是有顺序的，所以按照图层顺序进行传参。</p>
+<p>为保证生成资源的完整性，必须先确保onload之后进入合成过程。</p>
+<p>以左上角为原点，然后使用性能不错的drawimage(x,y,w,h)离屏渲染生成，从而避开了生成图被白条影响。</p>
+<p><strong>b部分</strong>：海报的清晰度(优化点)</p>
+<p>可以看到上面的效果图清晰度是非常不理想的，需要优化。</p>
+<hr>
+<p>为什么我们的canvas绘制的东西看上去总是比用DOM合成的东西糊一些？</p>
+<p>真实物理设备的像素和css的像素是有差距的，window.devicePixelRatio的值就反应了其比例。它告诉浏览器应使用多少屏幕实际像素来绘制单个CSS像素。</p>
+<p>同一个东西，你使用一个css像素来表示，假设在不同手机上分别浏览器本需要4个物理像素或8个物理像素。而canvas只用一个位图像素来填充4个物理像素或8个物理像素，不糊才怪呢..</p>
+<p>如果想深入了解，参考：<a href="https://juejin.im/post/5cbdda7bf265da036504fb46" target="_blank" rel="noopener">https://juejin.im/post/5cbdda7bf265da036504fb46</a></p>
+<hr>
+<p>1.js设置放大<code>devicePixelRatio</code>倍数宽高的canvas，css设置缩小<code>devicePixelRatio</code>倍数的canvas。扩大实际像素数量，视觉上保持跟原有尺寸一致，在API生成图片后会清晰很多。</p>
+<blockquote>
+<p>这里需要注意的是，使用css缩小视觉画布时，由于fabirc会在html上生成两个canvas画布，分别是outer和inner，你需要把两个画布的css都缩小。</p>
+</blockquote>
+<p>2.关闭canvas抗锯齿</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">"canvas"</span>);</span><br><span class="line"><span class="keyword">const</span> scale = <span class="built_in">window</span>.devicePixelRatio;</span><br><span class="line">canvas.width = width * scale;</span><br><span class="line">canvas.height = height * scale;</span><br><span class="line"><span class="keyword">const</span> context = canvas.getContext(<span class="string">"2d"</span>).scale(scale, scale)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 关闭抗锯齿</span></span><br><span class="line">context.mozImageSmoothingEnabled = <span class="literal">false</span>;</span><br><span class="line">context.webkitImageSmoothingEnabled = <span class="literal">false</span>;</span><br><span class="line">context.msImageSmoothingEnabled = <span class="literal">false</span>;</span><br><span class="line">context.imageSmoothingEnabled = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>优化后效果如下，手机保存图实际质量比这个高：</p>
+<p><img src="https://i.loli.net/2020/05/16/hmHFyS4axcbZ8OC.png" alt="3.png"></p>
+<h4 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a>4.总结</h4><p>对十分陌生的canvas稍微有了一些认识，用canvas做动画的库非常多，但有个致命的缺点就是没办法进行调试…</p>
+<p>其中还有很多微信浏览器的很多玄学问题就不展开了，白条问题确实是很头疼的。fabric可以整出很多惊艳的效果，但其乱七八糟的文档和糟糕的示例会带来很多麻烦，影响发挥…</p>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://tsunamigg.github.io/2020/04/21/fabric-notes/>https://tsunamigg.github.io/2020/04/21/fabric-notes/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-28T22:27:32+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：May 28, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/fabric-canvas-notes/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>fabric canvas notes</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2020/05/22/Vue-source-learn2/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Vue的变化侦测</p>
+                <p class='content'>Vue的响应式数据是如何做到的？
+
+
+
+变化侦测
+变化侦测 = 数据观测+依赖收集+依赖更新
+
+使用Object.defineProperty来使得数据变得可“观测”
+依赖收集(Observer...</p>
+              </a>
+            
+            
+              <a class='next' href='/2019/08/25/object-create/'>
+                <p class='title'>创建对象的几种方式<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>在native中，创建对象的方式千差万别，设计模式中的创建型则基于这些不同的方式
+
+1.简单工厂模式：Simple Factory工厂模式什么意思？ 如果把我们编写业务代码的过程，比作造一台电视...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'fabric notes',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow blur desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#制作图片涂鸦画板-微信浏览器"><span class="toc-text">制作图片涂鸦画板(微信浏览器)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#fabric-customiseControls简介"><span class="toc-text">fabric+customiseControls简介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#效果说明-模糊的图片是故意的"><span class="toc-text">效果说明(模糊的图片是故意的)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#开撸"><span class="toc-text">开撸</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-总结"><span class="toc-text">4.总结</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:ganchao1996@gmai.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/tsunamiGG"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        as theme, total visits
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          times
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://tsunamigg.github.io/">Copyright © 2017-2020 tsunamigg</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
+    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
