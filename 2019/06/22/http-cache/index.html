@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>初识`http`缓存 - Secret Garden</title>
+  
+    <meta name="keywords" content="http">
+  
+  
+    <meta name="description" content="不打不相识之http缓存">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+          
+            VOLANTIS <b><sup style='color:#3AA757'>2.6.6</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2019/06/22/http-cache/">
+      初识`http`缓存
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://tsunamigg.github.io/" rel="nofollow">
+    <img src="https://avatars2.githubusercontent.com/u/37109219?s=460&u=72c6da1fb1e7512a0f73dd255dd2b85998682a99&v=4">
+    <p>tsunami</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Jun 22, 2019</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>2.2k words</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>8 min</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>不打不相识之http缓存</p>
+<a id="more"></a>
+
+<h2 id="初识http缓存"><a href="#初识http缓存" class="headerlink" title="初识http缓存"></a>初识<code>http</code>缓存</h2><p>近日，发现我打包的<code>js</code>代码上传到服务器后，并没有更新。想到用<code>ng</code>做了代理，可能是<code>ng</code>缓存的问题，就查资料学习了一下<code>http</code>（1.1）缓存的东西。</p>
+<p><img src="http://09imgmini.eastday.com/mobile/20191029/2019102911_fc3f4eb4301b40d58a50935f5cf234c4_3917_cover_mwpm_03201609.jpg" alt=""></p>
+<h4 id="1-相关术语：-约定req为请求头，res响应头，C客户端，S服务端"><a href="#1-相关术语：-约定req为请求头，res响应头，C客户端，S服务端" class="headerlink" title="1.相关术语：(约定req为请求头，res响应头，C客户端，S服务端)"></a>1.相关术语：(约定<code>req</code>为请求头，<code>res</code>响应头，<code>C</code>客户端，<code>S</code>服务端)</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// response Headers</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: nginx</span><br><span class="line">Date: Wed, 04 Dec 2019 09:11:07 GMT</span><br><span class="line">Content-Type: text/css</span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line">Last-Modified: Wed, 04 Dec 2019 09:03:18 GMT</span><br><span class="line">ETag: W/"5de77656-2340"</span><br><span class="line">Expires: Wed, 04 Dec 2019 21:11:06 GMT</span><br><span class="line">Cache-Control: max-age=43200</span><br><span class="line">Content-Encoding: gzip</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Expires ：<code>res</code>中为资源过期时间</p>
+</li>
+<li><p>Last-Modified： <code>res</code>中为资源最近修改时间</p>
+</li>
+<li><p>ETag： <code>res</code>中资源的唯一标识符(hash算法生成)</p>
+</li>
+<li><p>If-Modified-Since ： <code>req</code>中的资源最近修改时间</p>
+</li>
+<li><p>If-None-Match ：<code>req</code>中的资源标识 </p>
+</li>
+<li><p>Cache-Control ： <code>res</code>，<code>req</code>中表示缓存策略</p>
+<ol>
+<li>req中常用指令</li>
+</ol>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">字段名称</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">max-age=<seconds></td>
+<td align="center">设置缓存存储的最大周期，超过这个时间缓存被认为过期(单位秒)。与<code>Expires</code>相反，时间是相对于请求的时间</td>
+</tr>
+<tr>
+<td align="center">max-stale[=<seconds>]</td>
+<td align="center"><code>C</code>可接收一个已经过期的资源。设置一个可选的秒数，不接受超过给定时间的资源</td>
+</tr>
+<tr>
+<td align="center">min-fresh=<seconds></td>
+<td align="center"><code>C</code>希望获取一个能在指定的秒数内保持其最新状态的<code>res</code></td>
+</tr>
+<tr>
+<td align="center">no-cache</td>
+<td align="center">在发布缓存副本之前，强制要求缓存把请求提交给原始服务器进行验证</td>
+</tr>
+<tr>
+<td align="center">no-store</td>
+<td align="center">不缓存有关客户端请求或服务器响应的任何内容</td>
+</tr>
+</tbody></table>
+<p>​        2. res中常用指令(req中重复的不列举，详见MDN)</p>
+<table>
+<thead>
+<tr>
+<th align="center">字段名称</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">public</td>
+<td align="center">表明响应可以被任何对象（包括：发送请求的客户端，代理服务器，等等）缓存，即使是通常不可缓存的内容</td>
+</tr>
+<tr>
+<td align="center">private</td>
+<td align="center">表明响应只能被单个用户缓存，不能作为共享缓存（即代理服务器不能缓存它）。私有缓存可以缓存响应内容</td>
+</tr>
+<tr>
+<td align="center">must-revalidate</td>
+<td align="center">一旦资源过期（比如已经超过<code>max-age</code>），在成功向原始服务器验证之前，缓存不能用该资源响应后续请求</td>
+</tr>
+<tr>
+<td align="center">proxy-revalidate</td>
+<td align="center">与<code>must-revalidate</code>作用相同，但它仅适用于共享缓存（例如代理），并被私有缓存忽略</td>
+</tr>
+<tr>
+<td align="center">s-maxage=<seconds></td>
+<td align="center">覆盖<code>max-age</code>或者<code>Expires</code>头，但是仅适用于共享缓存(比如各个代理)，私有缓存会忽略它</td>
+</tr>
+</tbody></table>
+<p> 其中<code>Last-Modified</code>与<code>If-Modified-Since</code>，<code>ETag</code>与<code>If-None-Match</code>是在每次的res，req中配对使用的。</p>
+<h4 id="2-常见缓存场景：-约定资源为app-js"><a href="#2-常见缓存场景：-约定资源为app-js" class="headerlink" title="2. 常见缓存场景：(约定资源为app.js)"></a>2. 常见缓存场景：(约定资源为app.js)</h4><ol>
+<li><h5 id="Expires："><a href="#Expires：" class="headerlink" title="Expires："></a>Expires：</h5><ul>
+<li><p>过程</p>
+<ol>
+<li><code>C</code>端请求<em>app.js</em>  —-&gt;  <code>S</code>端。</li>
+<li><code>S</code>端响应<em>app.js</em> 与<em>Expires</em>  —-&gt; <code>C</code>端。(<code>C</code>端缓存<em>app.js<em>直到</em>Expires</em>)</li>
+<li>if <strong>1</strong> 发生在<em>Expires</em> 前，会直接从缓存中取, else <strong>2</strong></li>
+<li>重复以上</li>
+</ol>
+</li>
+<li><p>优势</p>
+<p>相比于最原始的不带缓存的请求和相应，优势很明显，会直接从缓存中取，减少请求响应次数</p>
+</li>
+<li><p>缺陷</p>
+<p>如果<em>app.js<em>在</em>Expires</em>  内发生了改变，<code>C</code>端呈现的资源不是最新的。</p>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="2">
+<li><h5 id="Expires-Last-Modified："><a href="#Expires-Last-Modified：" class="headerlink" title="Expires + Last-Modified："></a>Expires + Last-Modified：</h5><ul>
+<li><p>过程</p>
+<ol>
+<li><p><code>C</code>端请求<em>app.js</em>  —-&gt;  <code>S</code>端</p>
+</li>
+<li><p><code>S</code>端响应<em>app.js</em> 与<em>Expires*， *Last-Modified</em> —-&gt; <code>C</code>端。(<code>C</code>端缓存<em>app.js<em>直到</em>Expires</em>,上次修改时间是 <em>Last-Modified</em>）</p>
+</li>
+<li><ul>
+<li><p>if <strong>1</strong> 发生在<em>Expires</em> 前，会直接从缓存中取(200)。</p>
+</li>
+<li><p>else <code>C</code>端请求<code>S</code>端，带上<em>If-Modified-Since</em>（等于上一次相应的<em>Last-Modified</em>）</p>
+<ul>
+<li><code>S</code>端用<code>req</code>中的<em>If-Modified-Since</em>和<code>res</code>中的 <em>Last-Modified</em>比较。<ul>
+<li>if 一致，响应 <code>C</code>端：你可以继续用本地缓存(304)</li>
+<li>else,<strong>2</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>重复以上</p>
+</li>
+</ol>
+</li>
+<li><p>优势</p>
+<p>相比与只使用<em>Expires</em>，if <em>app.js</em>发生变化，可以更新缓存，<code>C</code>端呈现内容为最新，else 不会有新的<code>res</code>拉一次资源，直接读缓存</p>
+</li>
+<li><p>缺陷</p>
+<p><em>Last-Modified</em>精确到秒，实际中有很多一秒内会完成很多<code>req</code>和<code>res</code>,问题呼之欲出</p>
+<ul>
+<li>在 <em>Last-Modified</em>内，<em>app.js</em>被修改多次，那么<code>C</code>端还是会从缓存中读，呈现内容不是最新</li>
+<li>假设处于<code>vue-cli</code>开发下，因为某种原因，代码实际没有修改，但CI/CD重复构建打包了文件,<em>app.js<em>变为了</em>app01.js</em>(build.js生成的不同版本hash名称)，但代码只是名称变化，内容并不变化，却重新拉了一次资源</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="3">
+<li><h5 id="Expires-Last-Modified-ETag："><a href="#Expires-Last-Modified-ETag：" class="headerlink" title="Expires + Last-Modified + ETag："></a>Expires + Last-Modified + ETag：</h5><ul>
+<li><p>过程</p>
+<ol>
+<li><p><code>C</code>端请求<em>app.js</em>  —-&gt;  <code>S</code>端</p>
+</li>
+<li><p><code>S</code>端响应<em>app.js</em> 与<em>Expires*， *Last-Modified</em> ,<em>ETag</em>—-&gt; <code>C</code>端。(<code>C</code>端缓存<em>app.js<em>直到</em>Expires</em>,上次修改时间是 <em>Last-Modified</em>,文件标识是<em>ETag</em>）</p>
+</li>
+<li><ul>
+<li><p>if <strong>1</strong> 发生在<em>Expires</em> 前，会直接从缓存中取(200)。</p>
+<ul>
+<li>else <code>C</code>端请求<code>S</code>端，带上<em>If-Modified-Since</em>（等于上一次相应的<em>Last-Modified</em>）和<em>If-None-Match</em>（等于上一次相应的<em>Etag</em>）<ul>
+<li><code>S</code>端用<code>req</code>中的<em>If-None-Match</em>和<code>res</code>中的 <em>Etag</em>比较，<strong>忽略</strong>掉<em>If-Modified-Since</em>和<em>Last-Modified</em>的比较。(如果<em>Etag</em>变化，<em>Last-Modified</em>一定变化，充分条件)</li>
+<li>if 一致，响应 <code>C</code>端：你可以继续用本地缓存(304)</li>
+<li>else,<strong>2</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>重复以上</p>
+</li>
+</ol>
+</li>
+<li><p>优势</p>
+<p>相较于上一种，使得资源变更的验证更加严格。</p>
+</li>
+<li><p>缺陷</p>
+<p>让我们设想这种情况，我们频繁的修改<em>app.js</em>，打包构建，处于某种原因，我们并不想<code>C</code>端呈现最新的<em>app.js</em>，而是一段时间后再读取最新的，显然还达不到我们的要求</p>
+</li>
+</ul>
+</li>
+</ol>
+<ol start="4">
+<li><h5 id="Expires-Last-Modified-ETag-Cache-Control-："><a href="#Expires-Last-Modified-ETag-Cache-Control-：" class="headerlink" title="Expires + Last-Modified + ETag + Cache-Control ："></a>Expires + Last-Modified + ETag + Cache-Control ：</h5><ul>
+<li><p>过程</p>
+<ol>
+<li><p><code>C</code>端请求<em>app.js</em>  —-&gt;  <code>S</code>端</p>
+</li>
+<li><p><code>S</code>端响应<em>app.js</em> 与<em>Expires*， *Last-Modified</em> ,<em>ETag<em>， *Cache-Control</em>：max-age=43200 —-&gt; <code>C</code>端。(<code>C</code>端发现带有 <em>Cache-Control</em>：max-age=43200,<strong>忽略</strong>Expires<em>，记住</em>Last-Modified</em> ,<em>ETag</em>）</p>
+</li>
+<li><ul>
+<li><p>if <strong>1</strong> 发生在（<code>req</code>发生的时间+ 12h(43200s)），会直接从缓存中取(200)。</p>
+<ul>
+<li>else <code>C</code>端请求<code>S</code>端，带上<em>If-Modified-Since</em>（等于上一次相应的<em>Last-Modified</em>）和<em>If-None-Match</em>（等于上一次相应的<em>Etag</em>）<ul>
+<li><code>S</code>端用<code>req</code>中的<em>If-None-Match</em>和<code>res</code>中的 <em>Etag</em>比较，<strong>忽略</strong>掉<em>If-Modified-Since</em>和<em>Last-Modified</em>的比较。(如果<em>Etag</em>变化，<em>Last-Modified</em>一定变化，充分条件)</li>
+<li>if 一致，响应 <code>C</code>端：你可以继续用本地缓存(304)</li>
+<li>else,<strong>2</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>重复以上</p>
+</li>
+</ol>
+</li>
+<li><p>优势</p>
+<p>达到了我们上个方案达不到的效果</p>
+</li>
+<li><p>缺陷？</p>
+<p><code>C</code>端无法主动知道<code>S</code>端上我们请求的资源变化，只能被动的从<code>res</code>中得知，这算缺陷吗？我更多的认为是基于某种安全策略，所以这样规定。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="3-常见问题：-约定资源为app-js"><a href="#3-常见问题：-约定资源为app-js" class="headerlink" title="3. 常见问题：(约定资源为app.js)"></a>3. 常见问题：(约定资源为app.js)</h4><ol>
+<li><p>如何设置不缓存？</p>
+<ul>
+<li><p>ng配置如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 还有多种设置方法，举例一种</span><br><span class="line">// 重启ng不一定立即生效</span><br><span class="line">location / &#123;</span><br><span class="line">    access_log /data/nginx/log/xxx.log api;</span><br><span class="line">    </span><br><span class="line">    root /home/www/html;</span><br><span class="line">    </span><br><span class="line">    if ($request_filename ~ .*\.(htm|html)$)</span><br><span class="line">    </span><br><span class="line">     &#123;</span><br><span class="line">            add_header Cache-Control no-cache;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打包<code>html</code>设置<code>meta</code>标签如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Cache-Control"</span> <span class="attr">content</span>=<span class="string">"no-cache, no-store, must-revalidate"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Pragma"</span> <span class="attr">content</span>=<span class="string">"no-cache"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Expires"</span> <span class="attr">content</span>=<span class="string">"0"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> meta是用来在HTML文档中模拟HTTP协议的响应头报文。meta 标签用于网页的<head>与</head>中，meta 标签的用处很多。meta 的属性有两种：name和http-equiv。name属性主要用于描述网页，对应于content（网页内容），以便于搜索引擎机器人查找、分类（目前几乎所有的搜索引擎都使用网上机器人自动查找meta值来给网页分类）。这其中最重要的是description（站点在搜索引擎上的描述）和keywords（分类关键词），所以应该给每页加一个meta值。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>如何清理缓存？</p>
+<ul>
+<li><p>Nginx<code>企业版提供了purger功能，对于社区版Nginx可以考虑使用</code>ngx_cache_purge`（<a href="https://github.com/FRiCKLE/ngx_cache_purge）模块进行清理缓存。（该方法最好限制其访问权限，如只允许内网可以访问或者需要密码才能访问）" target="_blank" rel="noopener">https://github.com/FRiCKLE/ngx_cache_purge）模块进行清理缓存。（该方法最好限制其访问权限，如只允许内网可以访问或者需要密码才能访问）</a></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">location ~ /purge(/.*) &#123;</span><br><span class="line">     </span><br><span class="line"> allow 127.0.0.1;</span><br><span class="line">     </span><br><span class="line"> deny all;</span><br><span class="line">     </span><br><span class="line"> proxy_cache_purge cache$1$is_args$args;</span><br><span class="line">     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>PS： 类似宝塔面板这种Ng都自动安装了<code>ngx_cache_purge</code>模块，如何设置详见下方参考。</p>
+</li>
+<li><p>找到缓存文件夹，直接kill。</p>
+</li>
+</ul>
+</li>
+<li><p>如果发生缓存错误，检查的步骤？</p>
+<ol>
+<li><p>检查是否传错文件夹</p>
+<ul>
+<li>打开项目打包后的js，检查<em>app.js</em>文件名。</li>
+<li>打开浏览器控制台<code>Network</code>,勾选<em>js</em>,<code>F5</code>刷新后找到对应的app.xxx.js，比较。如果你发现名称不一样，而且<code>res</code>头部 Last-<em>Modified</em>也不对，那么大概率你传错文件夹了。</li>
+</ul>
+</li>
+<li><p>检查是否正确更新</p>
+<ul>
+<li>记录现阶段 <em>ETag</em></li>
+<li>重新上传后刷新，比较两次 <em>ETag</em>是否一致</li>
+</ul>
+</li>
+<li><p>检查是否正确配置ng等<code>Server</code></p>
+</li>
+<li><p>梳理构建部署步骤，逐步检查(只能帮你到这啦)</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>只是<code>http</code>（1.1）的部分常见场景，目前到这里已经足够，咱得一步一步来，切勿囫囵吞枣~</p>
+<p>思考有限，难免出现疏漏，欢迎诸位指出，集思广益。</p>
+<h6 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h6><ol>
+<li>《面试精选之http缓存》 <a href="https://juejin.im/post/5b3c87386fb9a04f9a5cb037#heading-2" target="_blank" rel="noopener">https://juejin.im/post/5b3c87386fb9a04f9a5cb037#heading-2</a></li>
+<li>《MDN - Cache-Control》<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control</a></li>
+<li>《浅谈http中的Cache-Control》<a href="https://blog.csdn.net/u012375924/article/details/82806617" target="_blank" rel="noopener">https://blog.csdn.net/u012375924/article/details/82806617</a></li>
+<li>《Nginx缓存配置及nginx ngx_cache_purge模块的使用》<a href="https://www.cnblogs.com/Eivll0m/p/4921829.html" target="_blank" rel="noopener">https://www.cnblogs.com/Eivll0m/p/4921829.html</a></li>
+</ol>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://tsunamigg.github.io/2019/06/22/http-cache/>https://tsunamigg.github.io/2019/06/22/http-cache/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-28T22:35:11+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：May 28, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/http/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>http</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2019/08/25/object-create/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>创建对象的几种方式</p>
+                <p class='content'>在native中，创建对象的方式千差万别，设计模式中的创建型则基于这些不同的方式
+
+1.简单工厂模式：Simple Factory工厂模式什么意思？ 如果把我们编写业务代码的过程，比作造一台电视...</p>
+              </a>
+            
+            
+              <a class='next' href='/2019/05/28/ESmodule/'>
+                <p class='title'>ESmodule<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>ESmodule的标准化完成一定会掀起波澜~
+
+图说 ES Modules（转载译文）原文：ES modules: A cartoon deep-dive, Lin Clark
+ES modul...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '初识`http`缓存',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow blur desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#初识http缓存"><span class="toc-text">初识http缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-相关术语：-约定req为请求头，res响应头，C客户端，S服务端"><span class="toc-text">1.相关术语：(约定req为请求头，res响应头，C客户端，S服务端)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-常见缓存场景：-约定资源为app-js"><span class="toc-text">2. 常见缓存场景：(约定资源为app.js)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Expires："><span class="toc-text">Expires：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Expires-Last-Modified："><span class="toc-text">Expires + Last-Modified：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Expires-Last-Modified-ETag："><span class="toc-text">Expires + Last-Modified + ETag：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Expires-Last-Modified-ETag-Cache-Control-："><span class="toc-text">Expires + Last-Modified + ETag + Cache-Control ：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-常见问题：-约定资源为app-js"><span class="toc-text">3. 常见问题：(约定资源为app.js)</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:ganchao1996@gmai.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/tsunamiGG"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        as theme, total visits
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          times
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://tsunamigg.github.io/">Copyright © 2017-2020 tsunamigg</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
+    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
