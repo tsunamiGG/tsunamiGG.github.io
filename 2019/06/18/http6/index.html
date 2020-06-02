@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>http核心 - Secret Garden</title>
+  
+    <meta name="keywords" content="http">
+  
+  
+    <meta name="description" content="http报文是奠定其成为应用层大哥的核心，恕我HTTP直言，在座的应用层协议都是辣鸡~">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+          
+            VOLANTIS <b><sup style='color:#3AA757'>2.6.6</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2019/06/18/http6/">
+      http核心
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://tsunamigg.github.io/" rel="nofollow">
+    <img src="https://avatars2.githubusercontent.com/u/37109219?s=460&u=72c6da1fb1e7512a0f73dd255dd2b85998682a99&v=4">
+    <p>tsunami</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Jun 18, 2019</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：5.6k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：22分钟</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>http报文是奠定其成为应用层大哥的核心，恕我HTTP直言，在座的应用层协议都是辣鸡~</p>
+<a id="more"></a>
+
+<h2 id="HTTP的核心"><a href="#HTTP的核心" class="headerlink" title="HTTP的核心"></a>HTTP的核心</h2><p>基于前面的基础知识复习，我发现所谓的HTTP协议其实“名不副实”。</p>
+<p>因为它压根儿不管”传输“的过程，这部分的工作被TCP/IP老哥任劳任怨的干了。其工作模式很简单，“请求 - 应答”，但其就强在简单，奠定了现代web一哥的地位。</p>
+<p>那么它的核心内容，是那些被传输的内容：http报文。</p>
+<p>HTTP 协议在规范文档里详细定义了报文的格式，规定了组成部分，解析规则，还有处理策略。</p>
+<p>所以可以在 TCP/IP 层之上实现更灵活丰富的功能，例如连接控制，缓存管理、数据编码、内容协商等等。</p>
+<h3 id="报文结构"><a href="#报文结构" class="headerlink" title="报文结构"></a>报文结构</h3><p>和TCP/UDP一样，都需要在实际传输的数据前加一些“料”(附加头数据)，但它是一个“纯文本”的协议，所以头数据都是 ASCII 码的文本，可以很容易地用肉眼阅读，不用借助程序解析也能够看懂。</p>
+<p>很常见的一个<strong>浏览器优化过的请求头</strong>例子：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">General</span></span><br><span class="line">Request URL: https://blog.csdn.net/weixin_44163780/article/uvc/90693902</span><br><span class="line">Request Method: GET</span><br><span class="line">Status Code: 200 </span><br><span class="line">Remote Address: 127.0.0.1:7890</span><br><span class="line">Referrer Policy: unsafe-url</span><br><span class="line">Response Headers</span><br><span class="line"><span class="attribute">Access-Control-Allow-Origin</span>: *</span><br><span class="line"><span class="attribute">cache-control</span>: no-cache</span><br><span class="line"><span class="attribute">Content-Security-Policy</span>: script-src 'self' 'sha256-nl+LCdUZCsURbeBC1buBlAcvBhCD2/SswpeCH2ZaR34=' 'sha256-nuF8drPPKUM4+b3urtYHupidizytc1BonZF1t/vSzs0'; object-src 'self';</span><br><span class="line"><span class="attribute">Content-Type</span>: text/css</span><br><span class="line"><span class="attribute">ETag</span>: "7UTBv1mKEz8B8cXsi14YOLWk94U="</span><br><span class="line">Request Headers</span><br><span class="line"><span class="attribute">Referer</span>: https://blog.csdn.net/weixin_44163780/article/details/90693902</span><br><span class="line"><span class="attribute">User-Agent</span>: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36</span><br><span class="line"><span class="attribute">Body</span></span><br><span class="line">body&gt;div#blockbyte-bs-indicator&gt;div&#123;opacity:0;pointer-events:none&#125;body&gt;iframe#blockbyte-bs-sidebar.blockbyte-bs-visible,body&gt;iframe#blockbyte-bs-overlay.blockbyte-bs-visible&#123;opacity:1;pointer-events:auto&#125;body.blockbyte-bs-noscroll&#123;overflow:hidden !important&#125;body&gt;div#blockbyte-bs-indicator&gt;div&#123;position:absolute;transform:translate3d(-"%indicatorWidth", 0, 0);top:0;left:0;width:"%indicatorWidth" !important;height:100%;background:"%indicatorColor";border-radius:0 10px 10px 0;transition:opacity 0.3s, transform 0.3s;z-index:2&#125;body&gt;div#blockbyte-bs-indicator&gt;div&gt;span&#123;-webkit-mask:no-repeat center/"%indicatorIconSize";-webkit-mask-image:url(chrome-extension://jdbnofccmhefkmjbkkdkfiicjkgofkdh/img/icon-bookmark.svg);background-color:"%indicatorIconColor";position:absolute;display:block;top:0;left:0;width:100%;height:100%&#125;body&gt;div#blockbyte-bs-indicator[data-pos='right']&#123;left:auto;right:0&#125;body&gt;div#blockbyte-bs-indicator[data-pos='right']&gt;div&#123;transform:translate3d("%indicatorWidth", 0, 0);left:auto;right:0;border-radius:10px 0 0 10px&#125;body&gt;div#blockbyte-bs-indicator.blockbyte-bs-fullHeight&gt;div&#123;border-radius:0&#125;body&gt;div#blockbyte-bs-indicator.blockbyte-bs-hover&gt;div&#123;transform:translate3d(0, 0, 0);opacity:1&#125;body&gt;div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb&#123;height:100% !important;top:0 !important&#125;body&gt;div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb&gt;div&#123;background:transparent&#125;body&gt;div#blockbyte-bs-indicator[data-pos='left'].blockbyte-bs-has-lsb&gt;div&gt;span&#123;-webkit-mask-position-y:20px&#125;body&gt;iframe#blockbyte-bs-sidebar&#123;width:"%sidebarWidth";max-width:none;height:0;z-index:2147483646;background-color:"%sidebarMaskColor" !important;border:none;display:block !important;transform:translate3d(-"%sidebarWidth", 0, 0);transition:width 0s 0.3s, height 0s 0.3s, opacity 0.3s, transform 0.3s&#125;body&gt;iframe#blockbyte-bs-sidebar[data-pos='right']&#123;left:auto;right:0;transform:translate3d("%sidebarWidth", 0, 0)&#125;body&gt;iframe#blockbyte-bs-sidebar.blockbyte-bs-visible&#123;width:calc(100% + %sidebarWidth);height:100%;transform:translate3d(0, 0, 0);transition:opacity 0.3s, transform 0.3s&#125;body&gt;iframe#blockbyte-bs-sidebar.blockbyte-bs-hideMask&#123;background:none !important&#125;body&gt;iframe#blockbyte-bs-sidebar.blockbyte-bs-hideMask:not(.blockbyte-bs-hover)&#123;width:calc(%sidebarWidth + 50px)&#125;body&gt;iframe#blockbyte-bs-overlay&#123;width:100%;max-width:none;height:100%;z-index:2147483647;border:none;background:"%overlayMaskColor" !important;transition:opacity 0.3s&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>HTTP 协议的请求报文和响应报文的结构基本相同，由三大部分组成：</p>
+<ol>
+<li><p>起始行(start line): 描述请求或相应的基本信息；</p>
+</li>
+<li><p>头部字段集合（header）：使用 key-value 形式更详细地说明报文；</p>
+</li>
+<li><p>消息正文（body/entity）：实际传输的数据，它不一定是纯文本，可以是图片、视频等二进制数据。</p>
+</li>
+</ol>
+<p>这其中前两部分起始行和头部字段经常又合称为“请求头”或“响应头”，消息正文又称为“实体”，但与“header”对应，很多时候就直接称为“body”。</p>
+<p>HTTP 协议规定<strong>报文必须有 header，但可以没有 body</strong>，而且在 header 之后必须要有一个“空行”，也就是“CRLF”，十六进制的“0D0A”。</p>
+<blockquote>
+<p>一个真正的报文 = start line + header  + CRLF(空行) + (body/entity)</p>
+</blockquote>
+<p>由于“快递式”的包装，拆包装的工作方式，我们在TCP/IP上传输了太多对于真实数据无用的信息，header里面各种token，cookie验证的一大堆字符串泛滥。TCP/IP老哥，我太难了…</p>
+<h3 id="使用ABNF-扩充巴科斯-瑙尔范式-描述HTTP报文"><a href="#使用ABNF-扩充巴科斯-瑙尔范式-描述HTTP报文" class="headerlink" title="使用ABNF(扩充巴科斯-瑙尔范式)描述HTTP报文"></a>使用ABNF(扩充巴科斯-瑙尔范式)描述HTTP报文</h3><p>上面提到报文的结构，那么怎么科学严谨的描述它，就要使用ABNF了。</p>
+<p>范式两个字是不是回想起大学时间老师教SQL数据库时的范式</p>
+<blockquote>
+<p>巴科斯范式的英文缩写为BNF,它是以美国人巴科斯（Backus）和丹麦人（Naur）的名字命名的一种形式化的语法表示方法，用来描述语法的一种形式体系，是一种典型的元语言。又称巴科斯-诺尔形式（Backus-Naur form）。它不仅能严格的表示语法规则，而且所描述的语法与上下文无关的。它具有语法简单，表示明确，便于语法分析和编译的特点。</p>
+</blockquote>
+<h3 id="ABNF规则"><a href="#ABNF规则" class="headerlink" title="ABNF规则"></a>ABNF规则</h3><p>空白字符( SP )：用来分隔定义中的各个元素</p>
+<ul>
+<li>method SP request-target SP HTTP-version CRLF</li>
+</ul>
+<p>选择（ / ）：表示多个规则都是可供选择的规则</p>
+<ul>
+<li>start-line=request-line / status-line</li>
+</ul>
+<p>值范围 （ %c##-## ）：</p>
+<ul>
+<li>OCTAL=”0” / “1” / “2” / “3” / “4” / “5” / ”6“ / ”7“ 与 OCTAL=%x30-37 等价</li>
+</ul>
+<p>序列组合（）:将规则组合起来，视为单个元素</p>
+<p>不定量重复 （ m*n ）：</p>
+<ul>
+<li>* 元素表示零个或更多元素：*（header-field CRLF）</li>
+<li>1* 元素表示一个或更多元素，2*4 元素表示两个至四个元素</li>
+</ul>
+<p>可选序列（ [] ）：</p>
+<ul>
+<li>[ message-body ]</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>规则</th>
+<th>形式定义</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ALPHA</td>
+<td>%x41-5A / %x61-7A</td>
+<td>大小写字母（A-z）</td>
+</tr>
+<tr>
+<td>DIGIT</td>
+<td>%x30-39</td>
+<td>数字（0-9）</td>
+</tr>
+<tr>
+<td>HEXDIG</td>
+<td>DIGIT/“A”/“B”/“C”/“D”/“E”/“F”</td>
+<td>十六进制数(0-9,A-F,a-f)</td>
+</tr>
+<tr>
+<td>DQUOTE</td>
+<td>%x22</td>
+<td>双引号</td>
+</tr>
+<tr>
+<td>SP</td>
+<td>%x20</td>
+<td>空格</td>
+</tr>
+<tr>
+<td>HTAB</td>
+<td>%x09</td>
+<td>横向制表符</td>
+</tr>
+<tr>
+<td>WSP</td>
+<td>SP/HTAB</td>
+<td>空格或横向制表符</td>
+</tr>
+<tr>
+<td>LWSP</td>
+<td>*(WSP/CRLF WSP)</td>
+<td>直线空白</td>
+</tr>
+<tr>
+<td>VCHAR</td>
+<td>%x21-7E</td>
+<td>可见字符</td>
+</tr>
+<tr>
+<td>CHAR</td>
+<td>%x01-7F</td>
+<td>任何7-位US-ASCII字符，不包括NUL</td>
+</tr>
+<tr>
+<td>OCTET</td>
+<td>%x00-FF</td>
+<td>8位数据</td>
+</tr>
+<tr>
+<td>CTL</td>
+<td>%x00-1F/%x7F</td>
+<td>空值字符</td>
+</tr>
+<tr>
+<td>CR</td>
+<td>%x0D</td>
+<td>回车 （mac）</td>
+</tr>
+<tr>
+<td>LF</td>
+<td>%x0A</td>
+<td>换行 （Linux）</td>
+</tr>
+<tr>
+<td>CRLF</td>
+<td>CR LF</td>
+<td>标准换行（windows）</td>
+</tr>
+<tr>
+<td>BIT</td>
+<td>“0”/“1”</td>
+<td>二进制数字</td>
+</tr>
+</tbody></table>
+<h3 id="ABNF表示"><a href="#ABNF表示" class="headerlink" title="ABNF表示"></a>ABNF表示</h3><p><strong>HTTP-message</strong>=<strong>start-line</strong> <em>( *</em>header-filed** CRLF ) CRLF [ <strong>message-body</strong> ]</p>
+<p><strong>start-line</strong>= request-line / status-line</p>
+<p>​    request-line= method SP resquest-status SP HTTP-version CRLF</p>
+<p>​    status-line= HTTP-version SP status-code SP reason-phrase CRLF</p>
+<p><strong>header-filed</strong>= field-name “:” OWS field-value OWS</p>
+<p>​    OWS= *(SP / HTAB)</p>
+<p>​    field-name = token</p>
+<p>​    field-value = *(field-content / obs-fold )</p>
+<p>*<em>message-body *</em>= *OCTET</p>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># curl -I www.baidu.com</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 输出</span><br><span class="line">HTTP&#x2F;1.1 200 OK</span><br><span class="line">Accept-Ranges: bytes</span><br><span class="line">Cache-Control: private, no-cache, no-store, proxy-revalidate, no-transform</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: 277</span><br><span class="line">Content-Type: text&#x2F;html</span><br><span class="line">Date: Fri, 29 May 2020 04:55:28 GMT</span><br><span class="line">Etag: &quot;575e1f71-115&quot;</span><br><span class="line">Last-Modified: Mon, 13 Jun 2016 02:50:25 GMT</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Server: bfe&#x2F;1.0.8.18</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 状态行示例</span><br><span class="line">status-line&#x3D; HTTP-version SP status-code SP reason-phrase CRLF</span><br><span class="line"></span><br><span class="line">HTTP&#x2F;1.1 200 OK</span><br><span class="line">HTTP&#x2F;1.1 400 Bad Request</span><br><span class="line">................</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可见用这种元语言来描述HTTP的消息很方便，虽然有一些规定的理解成本，但有了约束会理解的更加清晰。</p>
+<h3 id="常用头字段"><a href="#常用头字段" class="headerlink" title="常用头字段"></a>常用头字段</h3><p>HTTP 协议规定了非常多的头部字段，实现各种各样的功能，但基本上可以分为四大类：</p>
+<ol>
+<li>通用字段：在请求头和响应头里都可以出现；</li>
+<li>请求字段：仅能出现在请求头里，进一步说明请求信息或者额外的附加条件；</li>
+<li>响应字段：仅能出现在响应头里，补充说明响应报文的信息；</li>
+<li>实体字段：它实际上属于通用字段，但专门描述 body 的额外信息。</li>
+</ol>
+<p>1.Host： </p>
+<p>它属于请求字段，只能出现在请求头里，它同时也是唯一一个 HTTP/1.1 规范里要求必须出现的字段，也就是说，如果请求头里没有 Host，那这就是一个错误的报文</p>
+<p>2.User-Agent：</p>
+<p>是请求字段，只出现在请求头里。它使用一个字符串来描述发起 HTTP 请求的客户端，服务器可以依据它来返回最合适此浏览器显示的页面。</p>
+<blockquote>
+<p>但由于历史的原因，User-Agent 非常混乱，每个浏览器都自称是“Mozilla”“Chrome”“Safari”，企图使用这个字段来互相“伪装”，导致 User-Agent 变得越来越长，最终变得毫无意义。</p>
+<p>不过有的比较“诚实”的爬虫会在 User-Agent 里用“spider”标明自己是爬虫，所以可以利用这个字段实现简单的反爬虫策略</p>
+</blockquote>
+<p>3.Date： </p>
+<p>字段是一个通用字段，但通常出现在响应头里，表示 HTTP 报文创建的时间，客户端可以使用这个时间再搭配其他字段决定缓存策略</p>
+<p>4.Server：</p>
+<p>是响应字段，只能出现在响应头里。它告诉客户端当前正在提供 Web 服务的软件名称和版本号。</p>
+<p>Server 字段也不是必须要出现的，因为这会把服务器的一部分信息暴露给外界，如果这个版本恰好存在 bug，那么黑客就有可能利用 bug 攻陷服务器。所以，有的网站响应头里要么没有这个字段，要么就给出一个完全无关的描述信息。</p>
+<h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3><p>描述 状态行的 范式：status-line= HTTP-version SP status-code SP reason-phrase CRLF的<strong>tatus-code</strong>是状态行中信息量最多的部分，HTTP-version大多都是HTTP/1.1，reason-phrase则是写很常见的短语：“OK”，“Not Found”，“Bad Request” 等等。</p>
+<p>目前 RFC 标准里规定的状态码是三位数，所以取值范围就是从 000 到 999。但如果把代码简单地从 000 开始顺序编下去就显得有点太“low”，不灵活、不利于扩展，所以状态码也被设计成有一定的格式。</p>
+<p>RFC 标准把状态码分成了五类，用数字的第一位表示分类，而 0<del>99 不用，这样状态码的实际可用范围就大大缩小了，由 000</del>999 变成了 100~599。</p>
+<p>总共有 41 个状态码，<strong>但状态码的定义是开放的，允许自行扩展</strong>。所以 Apache、Nginx 等 Web 服务器都定义了一些专有的状态码。如果你自己开发 Web 应用，也完全可以在不冲突的前提下定义新的代码。</p>
+<p>这五类的具体含义是：</p>
+<ul>
+<li>1××：提示信息，表示目前是协议处理的中间状态，还需要后续的操作；</li>
+<li>2××：成功，报文已经收到并被正确处理；</li>
+<li>3××：重定向，资源位置发生变动，需要客户端重新发送请求；</li>
+<li>4××：客户端错误，请求报文有误，服务器无法处理；</li>
+<li>5××：服务器错误，服务器在处理请求时内部发生了错误。</li>
+</ul>
+<p>从这五类的具体含义可以看出，状态码并不单单表明这次请求的客户端或者服务端的“反应结果”，而是表明双方进行处理后的结果，可能是客户端的请求报文有错误，也可能是服务端内部处理时发生了错误等等。</p>
+<p>常见的状态码：</p>
+<ol>
+<li>101 Switching Protocols: 它的意思是客户端使用 Upgrade 头字段，要求在 HTTP 协议的基础上改成其他的协议继续通信，比如 WebSocket。而如果服务器也同意变更协议，就会发送状态码 101，但这之后的数据传输就不会再使用 HTTP 了</li>
+<li>206 Partial Content: 是 HTTP 分块下载或断点续传的基础，在客户端发送“范围请求”、要求获取资源的部分数据时出现，它与 200 一样，也是服务器成功处理了请求，但 body 里的数据不是资源的全部，而是其中的一部分。状态码 206 通常还会伴随着头字段“Content-Range”，表示响应报文里 body 数据的具体范围，供客户端确认，例如“Content-Range: bytes 0-99/2000”，意思是此次获取的是总计 2000 个字节的前 100 个字节。</li>
+<li>301 Moved Permanently: 俗称“永久重定向”，含义是此次请求的资源已经不存在了，需要改用改用新的 URI 再次访问。与302(Moved Temporarily)临时重定向，一词之差，应用场景却有很大不同。如果你的服务从http升级到https，就需要配置301，永久重定向后的跳转链接；如果今天夜里网站后台要系统维护，服务暂时不可用，这就属于“临时”的，可以配置成 302 跳转，把流量临时切换到一个静态通知页面，浏览器看到这个 302 就知道这只是暂时的情况，不会做缓存优化，第二天还会访问原来的地址。</li>
+<li>304 Not Modified: 是一个比较有意思的状态码，它用于 If-Modified-Since 等条件请求，表示资源未修改，用于缓存控制。它不具有通常的跳转含义，但可以理解成“重定向已到缓存的文件”（即“缓存重定向”）。</li>
+<li>400 Bad Request:  是一个通用的错误码，表示请求报文有错误，但具体是数据格式错误、缺少请求头还是 URI 超长它没有明确说，只是一个笼统的错误，客户端看到 400 只会是“一头雾水”“不知所措”。所以，在开发 Web 应用时应当尽量避免给客户端返回 400，而是要用其他更有明确含义的状态码。</li>
+<li>403 Forbidden: 实际上不是客户端的请求出错，而是表示服务器禁止访问资源。原因可能多种多样，例如信息敏感、法律禁止等，如果服务器友好一点，可以在 body 里详细说明拒绝请求的原因，不过现实中通常都是直接给一个“闭门羹”。</li>
+<li>405 Method Not Allowed：不允许使用某些方法操作资源，例如不允许 POST 只能 GET；</li>
+<li>406 Not Acceptable：资源无法满足客户端请求的条件，例如请求中文但只有英文；</li>
+<li>408 Request Timeout：请求超时，服务器等待了过长的时间；</li>
+<li>409 Conflict：多个请求发生了冲突，可以理解为多线程并发时的竞态；</li>
+<li>413 Request Entity Too Large：请求报文里的 body 太大；</li>
+<li>414 Request-URI Too Long：请求行里的 URI 太大；</li>
+<li>429 Too Many Requests：客户端发送了太多的请求，通常是由于服务器的限连策略；</li>
+<li>431 Request Header Fields Too Large：请求头某个字段或总体太大；</li>
+<li>500 Internal Server Error：与 400 类似，也是一个通用的错误码，服务器究竟发生了什么错误我们是不知道的。不过对于服务器来说这应该算是好事，通常不应该把服务器内部的详细信息，例如出错的函数调用栈告诉外界。虽然不利于调试，但能够防止黑客的窥探或者分析。</li>
+<li>500 Internal Server Error：与 400 类似，也是一个通用的错误码，服务器究竟发生了什么错误我们是不知道的。不过对于服务器来说这应该算是好事，通常不应该把服务器内部的详细信息，例如出错的函数调用栈告诉外界。虽然不利于调试，但能够防止黑客的窥探或者分析。</li>
+<li>502 Bad Gateway：通常是服务器作为网关或者代理时返回的错误码，表示服务器自身工作正常，访问后端服务器时发生了错误，但具体的错误原因也是不知道的</li>
+<li>503 Service Unavailable：表示服务器当前很忙，暂时无法响应服务，我们上网时有时候遇到的“网络服务正忙，请稍后重试”的提示信息就是状态码 503，很可能过几秒钟后服务器就不那么忙了，可以继续提供服务，所以 503 响应报文里通常还会有一个“Retry-After”字段，<em>指示客户端可以在多久以后再次尝试发送请求</em></li>
+</ol>
+<h3 id="内容协商"><a href="#内容协商" class="headerlink" title="内容协商"></a>内容协商</h3><p>假如 HTTP 没有告知数据类型的功能，服务器把“一大坨”数据发给了浏览器，浏览器看到的是一个“黑盒子”，面对茫茫多的数据类型，猜不太可能，于是就有了两端的内容协商。</p>
+<h4 id="内容的数据类型"><a href="#内容的数据类型" class="headerlink" title="内容的数据类型"></a>内容的数据类型</h4><p>HTTP用一部分的“MIME”来标记body中的数据类型，叫“MIME type”。用“Encoding type”来表明数据的压缩类型(编码格式)。还有语言类型，编码类型…</p>
+<p>常见的<strong>MIME type</strong>:</p>
+<ol>
+<li>text：即文本格式的可读数据，我们最熟悉的应该就是 text/html 了，表示超文本文档，此外还有纯文本 text/plain、样式表 text/css 等。</li>
+<li>image：即图像文件，有 image/gif、image/jpeg、image/png 等。</li>
+<li>audio/video：音频和视频数据，例如 audio/mpeg、video/mp4 等。</li>
+<li>application：数据格式不固定，可能是文本也可能是二进制，必须由上层应用程序来解释。常见的有 application/json，application/javascript、application/pdf 等，另外，如果实在是不知道数据是什么类型，像刚才说的“黑盒”，就会是 application/octet-stream，即不透明的二进制数据。</li>
+</ol>
+<p>常见的<strong>Encoding type</strong>:</p>
+<ol>
+<li>gzip：GNU zip 压缩格式，也是互联网上最流行的压缩格式；</li>
+<li>deflate：zlib（deflate）压缩格式，流行程度仅次于 gzip；</li>
+<li>br：一种专门为 HTTP 优化的新压缩算法（Brotli）。</li>
+</ol>
+<p>常见的<strong>Language type</strong>: zh-CN, zh, en</p>
+<p>常见的<strong>Charset type</strong>: gbk, utf-8</p>
+<p>上述的是“内容协商”的键值对的值，HTTP 协议为此定义了两个 Accept 请求头字段和两个 Content 实体头字段作为“内容协商”的键值对的键。</p>
+<p>也就是说，客户端用 Accept 头告诉服务器希望接收什么样的数据，而服务器用 Content 头告诉客户端实际发送了什么样的数据。</p>
+<p>例如上文中举例的报文：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Accept-Ranges</span>: bytes</span><br><span class="line"><span class="attribute">Cache-Control</span>: private, no-cache, no-store, proxy-revalidate, no-transform</span><br><span class="line"><span class="attribute">Connection</span>: keep-alive</span><br><span class="line"><span class="attribute">Content-Length</span>: 277</span><br><span class="line"><span class="attribute">Content-Type</span>: text/html</span><br></pre></td></tr></table></figure>
+
+<p>可以用“,”做分隔符列出多个类型，例如下面：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Accept-Encoding</span>: gzip, deflate, br</span><br><span class="line"><span class="attribute">Content-Encoding</span>: gzip</span><br><span class="line"><span class="attribute">Accept-Language</span>: zh-CN, zh, en</span><br><span class="line"><span class="attribute">Accept-Charset</span>: gbk, utf-8</span><br><span class="line"><span class="attribute">Content-Type</span>: text/html; charset=utf-8</span><br></pre></td></tr></table></figure>
+
+<p>说完了表示数据类型的主体内容，还有一些辅助内容。</p>
+<h4 id="内容的选择权重"><a href="#内容的选择权重" class="headerlink" title="内容的选择权重"></a>内容的选择权重</h4><p>在 HTTP 协议里用 Accept、Accept-Encoding、Accept-Language 等请求头字段进行内容协商的时候，还可以用一种特殊的“q”参数表示权重来设定优先级，这里的“q”是“quality factor”的意思。</p>
+<p>权重的最大值是 1，最小值是 0.01，默认值是 1，如果值是 0 就表示拒绝。具体的形式是在数据类型或语言代码后面加一个“;”，然后是“q=value”。</p>
+<blockquote>
+<p>这里要提醒的是“;”的用法，在大多数编程语言里“;”的断句语气要强于“,”，而在 HTTP 的内容协商里却恰好反了过来，“;”的意义是小于“,”的。</p>
+</blockquote>
+<p>例如下面的 Accept 字段：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Accept</span>: text/html,application/xml;q=0.9,*/*;q=0.8</span><br></pre></td></tr></table></figure>
+
+<p>它表示浏览器最希望使用的是 HTML 文件，权重是 1，其次是 XML 文件，权重是 0.9，最后是任意数据类型，权重是 0.8。服务器收到请求头后，就会计算权重，再根据自己的实际情况优先输出 HTML 或者 XML。</p>
+<h4 id="内容协商的结果"><a href="#内容协商的结果" class="headerlink" title="内容协商的结果"></a>内容协商的结果</h4><p>内容协商的过程是不透明的，每个 Web 服务器使用的算法都不一样。但有的时候，服务器会在响应头里多加一个 Vary 字段，记录服务器在内容协商时参考的请求头字段，给出一点信息，例如：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Vary</span>: Accept-Encoding,User-Agent,Accept</span><br></pre></td></tr></table></figure>
+
+<p>这个 Vary 字段表示服务器依据了 Accept-Encoding、User-Agent 和 Accept 这三个头字段，然后决定了发回的响应报文。</p>
+<p>Vary 字段可以认为是响应报文的一个特殊的“版本标记”。每当 Accept 等请求头变化时，Vary 也会随着响应报文一起变化。也就是说，同一个 URI 可能会有多个不同的“版本”，主要用在传输链路中间的代理服务器实现缓存服务。</p>
+<h3 id="Http缓存常用字段"><a href="#Http缓存常用字段" class="headerlink" title="Http缓存常用字段"></a>Http缓存常用字段</h3><p>约定<code>req</code>为请求头，<code>res</code>响应头，<code>C</code>客户端，<code>S</code>服务端</p>
+<ul>
+<li><p>Expires ：<code>res</code>中为资源过期时间</p>
+</li>
+<li><p>Last-Modified： <code>res</code>中为资源最近修改时间</p>
+</li>
+<li><p>ETag： <code>res</code>中资源的唯一标识符(hash算法生成)</p>
+</li>
+<li><p>If-Modified-Since ： <code>req</code>中的资源最近修改时间</p>
+</li>
+<li><p>If-None-Match ：<code>req</code>中的资源标识 </p>
+</li>
+<li><p>Cache-Control ： <code>res</code>，<code>req</code>中表示缓存策略</p>
+<ol>
+<li>req中常用指令</li>
+</ol>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">字段名称</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">max-age=<seconds></td>
+<td align="center">设置缓存存储的最大周期，超过这个时间缓存被认为过期(单位秒)。与<code>Expires</code>相反，时间是相对于请求的时间</td>
+</tr>
+<tr>
+<td align="center">max-stale[=<seconds>]</td>
+<td align="center"><code>C</code>可接收一个已经过期的资源。设置一个可选的秒数，不接受超过给定时间的资源</td>
+</tr>
+<tr>
+<td align="center">min-fresh=<seconds></td>
+<td align="center"><code>C</code>希望获取一个能在指定的秒数内保持其最新状态的<code>res</code></td>
+</tr>
+<tr>
+<td align="center">no-cache</td>
+<td align="center">在发布缓存副本之前，强制要求缓存把请求提交给原始服务器进行验证</td>
+</tr>
+<tr>
+<td align="center">no-store</td>
+<td align="center">不缓存有关客户端请求或服务器响应的任何内容</td>
+</tr>
+</tbody></table>
+<p>​        2. res中常用指令(req中重复的不列举，详见MDN)</p>
+<table>
+<thead>
+<tr>
+<th align="center">字段名称</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">public</td>
+<td align="center">表明响应可以被任何对象（包括：发送请求的客户端，代理服务器，等等）缓存，即使是通常不可缓存的内容</td>
+</tr>
+<tr>
+<td align="center">private</td>
+<td align="center">表明响应只能被单个用户缓存，不能作为共享缓存（即代理服务器不能缓存它）。私有缓存可以缓存响应内容</td>
+</tr>
+<tr>
+<td align="center">must-revalidate</td>
+<td align="center">一旦资源过期（比如已经超过<code>max-age</code>），在成功向原始服务器验证之前，缓存不能用该资源响应后续请求</td>
+</tr>
+<tr>
+<td align="center">proxy-revalidate</td>
+<td align="center">与<code>must-revalidate</code>作用相同，但它仅适用于共享缓存（例如代理），并被私有缓存忽略</td>
+</tr>
+<tr>
+<td align="center">s-maxage=<seconds></td>
+<td align="center">覆盖<code>max-age</code>或者<code>Expires</code>头，但是仅适用于共享缓存(比如各个代理)，私有缓存会忽略它</td>
+</tr>
+</tbody></table>
+<p> 其中<code>Last-Modified</code>与<code>If-Modified-Since</code>，<code>ETag</code>与<code>If-None-Match</code>是在每次的res，req中配对使用的。</p>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://tsunamigg.github.io/2019/06/18/http6/>https://tsunamigg.github.io/2019/06/18/http6/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-06-01T22:22:10+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Jun 1, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/http/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>http</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2019/06/22/http7/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>初识`http`缓存</p>
+                <p class='content'>不打不相识之http缓存
+
+
+初识http缓存近日，发现我打包的js代码上传到服务器后，并没有更新。想到用ng做了代理，可能是ng缓存的问题，就查资料学习了一下http（1.1）缓存的东西。
+
+...</p>
+              </a>
+            
+            
+              <a class='next' href='/2019/06/13/http5/'>
+                <p class='title'>从一次链接看TCP与HTTP<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>使用Wireshark抓包，从一次链接看TCP与HTTP
+
+
+TCPHeader
+第一次请求包示例： 60738 -&gt; 8081 [SYN] Seq=0 Win=64240 Len=0 M...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'http核心',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow blur desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP的核心"><span class="toc-text">HTTP的核心</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#报文结构"><span class="toc-text">报文结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用ABNF-扩充巴科斯-瑙尔范式-描述HTTP报文"><span class="toc-text">使用ABNF(扩充巴科斯-瑙尔范式)描述HTTP报文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ABNF规则"><span class="toc-text">ABNF规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ABNF表示"><span class="toc-text">ABNF表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用头字段"><span class="toc-text">常用头字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#状态码"><span class="toc-text">状态码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内容协商"><span class="toc-text">内容协商</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#内容的数据类型"><span class="toc-text">内容的数据类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内容的选择权重"><span class="toc-text">内容的选择权重</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内容协商的结果"><span class="toc-text">内容协商的结果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Http缓存常用字段"><span class="toc-text">Http缓存常用字段</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:ganchao1996@gmai.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/tsunamiGG"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://tsunamigg.github.io/">Copyright © 2017-2020 tsunamigg</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
+    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

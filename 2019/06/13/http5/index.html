@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>从一次链接看TCP与HTTP - Secret Garden</title>
+  
+    <meta name="keywords" content="http">
+  
+  
+    <meta name="description" content="使用Wireshark抓包，从一次链接看TCP与HTTP">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+          
+            VOLANTIS <b><sup style='color:#3AA757'>2.6.6</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2019/06/13/http5/">
+      从一次链接看TCP与HTTP
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://tsunamigg.github.io/" rel="nofollow">
+    <img src="https://avatars2.githubusercontent.com/u/37109219?s=460&u=72c6da1fb1e7512a0f73dd255dd2b85998682a99&v=4">
+    <p>tsunami</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Jun 13, 2019</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：4.1k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：14分钟</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>使用Wireshark抓包，从一次链接看TCP与HTTP</p>
+<a id="more"></a>
+
+<h4 id="TCPHeader"><a href="#TCPHeader" class="headerlink" title="TCPHeader"></a>TCPHeader</h4><p><img src="https://upload-images.jianshu.io/upload_images/13717038-a22fdaf95e1b4107?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>第一次请求包示例： 60738 -&gt; 8081 [SYN] Seq=0 Win=64240 Len=0 Mss=1460 Ws=256 SACK_PERM=1</p>
+<h4 id="请求信息字段名详解"><a href="#请求信息字段名详解" class="headerlink" title="请求信息字段名详解"></a>请求信息字段名详解</h4><p><strong>1. Win: TCP 窗口大小</strong>，是指TCP传输能接受的最大字节数，这个可以进行动态调节，也就是TCP的滑动窗口，通过动态调整窗口大小，来控制发送数据的速率。上图中占用2个字节，也就是16位，那么可以支持的最大数就是2^16=65536，所以默认情况下TCP头部标记能支持的最大窗口数是65536字节，也就是64KB。</p>
+<p><strong>2. Len: 消息长度</strong>就是指数据报文段，因为整个TCP报文=Header+packSize,所以这个消息长度就是指要传送的数据包总共长度，在本次分析中也就是HTTP报文的大小。</p>
+<p><strong>3. Mss: 最大报文段长度</strong>：这个就是规定最大的能传输报文的长度，为了达到最佳的传输效能，TCP协议在建立连接的时候通常要协商双方的MSS值，这个值TCP协议在实现的时候往往用MTU( 最大传输单元)值代替（以太网的1500减去IP数据包包头的大小20Bytes和TCP数据段的包头20Bytes）所以一般MSS值1460，而实际上的MSS值一般会比这个数字大。</p>
+<blockquote>
+<p>TSO（TCP Segment Offload）的技术，该项技术是将部分的封包解包的处理工作交给了网卡，从而让CPU减少部分包处理的工作。</p>
+<p>网卡支持TSO技术时，TCP层会逐渐的加大MSS（包大小超过MSS字节），当下层接收到这个大包时不会做分包而是直接下发给下一层，当到达网卡后网卡会将这个大的IP包拆分为N个包（小于等于MTU字节的包）发送出去，而接收端也是这样处理，这样就相当于把部分包的组装工作给网卡去做（硬件的处理速度会比软件快很多）。</p>
+</blockquote>
+<p><strong>4. Ws: 窗口缩放调整因子</strong>：在前面说TCP窗口大小中我们说到，默认情况下，TCP窗口大小最大只能支持64KB的缓冲数据，在今天这个高速上网时代，这个大小肯定不满足条件了，所以，为了能够支持更多的缓冲数据 RFC 1323中就规定了TCP的扩展选项，其中窗口缩放调整因子就是其中之一，这个是如何起作用的呢？首先说明，这个参数是在[SYN]同步阶段进行协商的，我们结合上面抓包数据分析下。我们看到第一次请求协商的结果是WS=256,然后再ACK阶段扩展因子生效，调整了窗口大小。</p>
+<blockquote>
+<p>生效的抓包如下：</p>
+<p>60738 -&gt;8081 [ACK] Seq=1 ACK=1 Win=66560 Len=0</p>
+<p>我们发现这个窗口变成了66560，比默认的窗口要大，我们查看报文详情：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13717038-0cb4cbf46e7075bb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>我们发现，实际请求声明的窗口是260，WS扩展因子是256，最终计算的窗口大小是66560，所以我们知道了，这个扩展因子的作用就是，用原窗口大小乘以扩展因子，得到最终的窗口大小，也就是260*256=66560.</p>
+</blockquote>
+<p><strong>5. SACK_PERM:SACK选项</strong>，我们知道TCP传输有包的确认机制，默认情况下，接受端接受到一个包后，发送ACK确认，但是，默认只支持顺序的确认，也就是说，发送A,B,C个包，如果我收到了A,C的包，B没有收到，那么对于C，这个包我是不会确认的，需要等B这个包收到后再确认，那么TCP有超时重传机制，如果一个包很久没有确认，就会当它丢失了，进行重传，这样会造成很多多余的包重传，浪费传输空间。为了解决这个问题，SACK就提出了选择性确认机制，启用SACK后，接受端会确认所有收到的包，这样发送端就只用重传真正丢失的包了。</p>
+<h4 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h4><p><strong>TCP三次握手（建立连接过程）</strong></p>
+<table>
+<thead>
+<tr>
+<th>角色发送</th>
+<th align="center">过程</th>
+<th align="center">报文首部</th>
+<th align="center">报文部分内容</th>
+<th align="center">状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>客户端</td>
+<td align="center">1次握手</td>
+<td align="center">SYN = 1</td>
+<td align="center">seq = x</td>
+<td align="center">SYN_SENT</td>
+</tr>
+<tr>
+<td>服务端</td>
+<td align="center">2次握手</td>
+<td align="center">SYN = 1, ACK= 1</td>
+<td align="center">ack = x +1, seq = y</td>
+<td align="center">SYN_RECD</td>
+</tr>
+<tr>
+<td>客户端</td>
+<td align="center">3次握手</td>
+<td align="center">ACK = 1</td>
+<td align="center">ack = y + 1,seq = x +1</td>
+<td align="center">ESTABLISHED</td>
+</tr>
+</tbody></table>
+<p>我们根据上面的流程梳理，可以知道，序号1-序号3是明显的三次握手，然后序号4进行了一次HTTP请求，接着序号5是对HTTP请求的一次接收确认，序号6是响应HTTP请求，序号7是对响应请求的确认。</p>
+<p>第一次握手：建立连接。客户端发送连接请求报文段，将SYN位置为1，Sequence Number为x；然后，客户端进入SYN_SEND状态，等待服务器的确认；</p>
+<p>第二次握手：服务器收到SYN报文段。服务器收到客户端的SYN报文段，需要对这个SYN报文段进行确认，设置Acknowledgment Number为x+1(Sequence Number+1)；同时，自己还要发送SYN请求信息，将SYN位置为1，Sequence Number为y；服务器端将上述所有信息放到一个报文段（即SYN+ACK报文段）中，一并发送给客户端，此时服务器进入SYN_RECV状态；</p>
+<p>第三次握手：客户端收到服务器的SYN+ACK报文段。然后将Acknowledgment Number设置为y+1，向服务器发送ACK报文段，这个报文段发送完毕以后，客户端和服务器端都进入ESTABLISHED状态，完成TCP三次握手。</p>
+<p>为什么要三次握手？</p>
+<p>为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误。</p>
+<h4 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h4><p><strong>TCP四次挥手（断开连接过程）</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">角色发送</th>
+<th align="center">过程</th>
+<th align="center">报文首部</th>
+<th align="center">报文部分内容</th>
+<th align="center">状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">客户端</td>
+<td align="center">1次挥手</td>
+<td align="center">FIN = 1</td>
+<td align="center">seq = u</td>
+<td align="center">FIN_WAIT_1</td>
+</tr>
+<tr>
+<td align="center">服务端</td>
+<td align="center">2次挥手</td>
+<td align="center">ACK = 1</td>
+<td align="center">ack = u +1,seq = v</td>
+<td align="center">CLOSE_WAIT</td>
+</tr>
+<tr>
+<td align="center">客户端</td>
+<td align="center">3次挥手</td>
+<td align="center">FIN = 1</td>
+<td align="center">ack = u + 1,seq = w</td>
+<td align="center">LAST_ACK</td>
+</tr>
+<tr>
+<td align="center">服务端</td>
+<td align="center">4次挥手</td>
+<td align="center">ACK = 1</td>
+<td align="center">ack = w + 1，seq = u +1</td>
+<td align="center">TIME_WAIT</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注意此时的TCP连接还没有释放，必须经过2MSL（最长报文段寿命）的时间后，当客户端撤销相应的TCB后，才会进入CLOSED状态。</p>
+<p>服务器收到客户端发送的确认，立即进入CLOSED状态。</p>
+<p>可以从上面发现，服务端结束连接要比客户端早一些</p>
+</blockquote>
+<blockquote>
+<p>PS： </p>
+<p>seq：序列号  ack：确认号</p>
+<p>SYN：请求同步标志 ACK：确认标志  FIN ： 结束标志</p>
+</blockquote>
+<p>“四次挥手”在抓包里没有出现，这是因为 HTTP/1.1 长连接特性，默认不会立即关闭连接。</p>
+<p>正常情况下，连接断开是4次挥手的，4次挥手过程如下图：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13717038-3ed7d2f6064576ba?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>我们分析这图，挥手流程是这样的：</p>
+<p>第一次挥手：主机1（可以使客户端，也可以是服务器端），设置Sequence Number，向主机2发送一个FIN报文段；此时，主机1进入FIN_WAIT_1状态；这表示主机1没有数据要发送给主机2了；</p>
+<p>第二次挥手：主机2收到了主机1发送的FIN报文段，向主机1回一个ACK报文段，Acknowledgment Number为Sequence Number加1；主机1进入FIN_WAIT_2状态；主机2告诉主机1，我“同意”你的关闭请求；</p>
+<p>第三次挥手：主机2向主机1发送FIN报文段，请求关闭连接，同时主机2进入LAST_ACK状态；</p>
+<p>第四次挥手：主机1收到主机2发送的FIN报文段，向主机2发送ACK报文段，然后主机1进入TIME_WAIT状态；主机2收到主机1的ACK报文段以后，就关闭连接；此时，主机1等待2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，主机1也可以关闭连接了。</p>
+<p>为什么要四次挥手？</p>
+<p>TCP协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。TCP是全双工模式，这就意味着，当主机1发出FIN报文段时，<strong>只是表示主机1已经没有数据要发送了</strong>，主机1告诉主机2，它的数据已经全部发送完毕了；但是，这个时候主机1还是可以接受来自主机2的数据；当主机2返回ACK报文段时，表示它已经知道主机1没有数据发送了，但是主机2还是可以发送数据到主机1的；当主机2也发送了FIN报文段时，这个时候就表示主机2也没有数据要发送了，就会告诉主机1，我也没有数据要发送了，之后彼此就会愉快的中断这次TCP连接。</p>
+<blockquote>
+<p>上述序号8,9,10是我关闭浏览器后抓到的包，既然是关闭浏览器，我们肯定知道就是TCP连接的断开了。这里有同学应该已经发现了问题了，我们的断开是4次挥手，你这抓的包只有三条记录，是你写错了吧？我要告诉你的是，我没有写错，这是真实的抓包抓的，至于为什么是三次，我们来分析一下：</p>
+<p>在 RFC 2581中的4.2节有提到，ack可以延迟确认，只要求保证在500ms之内保证确认包到达即可。在这样的标准下，TCP确认是有可能进行合并延迟确认的，所以，根据这一点，我们推断下面这个包：</p>
+<p>9) 8081 -&gt; 60738 [FIN ACK] Seq=120 Ack=397 Win=30336 Len=0</p>
+<p>合并了对客户端的ack确认以及服务端发送的FIN断开信号包。我们点击该包详情如下： 这里红框中体现了，这个9号包是对Frame500的ACK确认，我们根据最开始的截图可以知道，这个包就是8号包</p>
+<p>8) 60738 -&gt; 8081 [FIN ACK] Seq=396 Ack=120 Win=66560 Len=0</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13717038-0a02146a53a3c013?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>并且9号包本身自己是发送的FIN信号包，所以，我们可以认为9号包合并了ACK和FIN的内容，所以通常的4次挥手，经过合并后变成了3次挥手。</p>
+</blockquote>
+<h4 id="Keep-Alive"><a href="#Keep-Alive" class="headerlink" title="Keep-Alive"></a>Keep-Alive</h4><p>答案是：目前的协议是不用的</p>
+<p>在HTTP0.9版本和HTTP1.0版本中，每次请求响应都是要三次握手的， 但是HTTP1.0开始尝试持续连接，也就是Keep-Alive参数，但是官方还没有正式支持，在HTTP1.1协议中，官方默认就是支持Keep-Alive参数的，默认是持续连接。Keep-Alive的作用主要有两点：</p>
+<p><strong>1.检查死节点</strong></p>
+<p>主要是为了让连接快速失败被发现，可以进行重新连接，比如A和B两端已经建立了连接，B节点因为 异常原因挂掉了，同时A节点并不知道，这时候有两种情况：</p>
+<p>1.假设B节点还没有恢复，那么B节点不会回复ACK，A节点就会一直重试，重试到一定次数才能知道B节点是死节点。</p>
+<p>2.B节点在A发送数据之前重启成功了，这个时候A节点发送数据，B节点并不会接受，而是会发送一个RST信号（在一个已关闭的socket上收到数据时，将发送RST数据包，要求对端关闭异常连接且对端不需要回复ACK）,然后A才知道B节点需要重连了。</p>
+<p>以上两种情况，都会导致只有到发送数据的时候才知道对方已经出异常了。而Keep-Alive每隔一段时间就会发送心跳，就可以很快的知道服务端节点的情况。</p>
+<p><strong>2.防止连接由于不活跃而断开</strong></p>
+<p>我们知道，网络连接的建立和维持是消耗资源的，一个服务器上能建立的连接是有限的，所以像防火墙或者操作系统中会为了节省资源会释放掉不活跃的连接，而Keep-Alive每隔一段时间发送一个心跳包，就是告诉防火墙或者操作系统，我这个连接是活跃的，不要杀我。</p>
+<p>后来重新抓了一次带有Keep-Alive的包，截图如下：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/13717038-ccc7d9e37d6f87a9?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="img"></p>
+<p>在上图中最后两个包就是发的Keep-Alive包，然后服务端进行ACK确认，我们看到keep-alive包，实际上是会发带有一个字节的包，这就是keep-alive的实现。</p>
+<h4 id="宏观上的输入网址后发生的事情"><a href="#宏观上的输入网址后发生的事情" class="headerlink" title="宏观上的输入网址后发生的事情"></a>宏观上的输入网址后发生的事情</h4><p>如果你用的是电脑台式机，那么你可能会使用带水晶头的双绞线连上网口，由交换机接入固定网络。如果你用的是手机、平板电脑，那么你可能会通过蜂窝网络、WiFi，由电信基站、无线热点接入移动网络。</p>
+<p>接入网络的同时，网络运行商会给你的设备分配一个 IP 地址，这个地址可能是静态分配的，也可能是动态分配的。静态 IP 就始终不变，而动态 IP 可能你下次上网就变了。</p>
+<p>假设你要访问的是 Apple 网站，显然你是不知道它的真实 IP 地址的，在浏览器里只能使用域名“<a href="http://www.apple.com”访问，那么接下来要做的必然是域名解析。这就要用" target="_blank" rel="noopener">www.apple.com”访问，那么接下来要做的必然是域名解析。这就要用</a> DNS 协议开始从操作系统、本地 DNS、根 DNS、顶级 DNS、权威 DNS 的层层解析，当然这中间有缓存，可能不会费太多时间就能拿到结果。</p>
+<p>别忘了互联网上还有另外一个重要的角色 CDN，它也会在 DNS 的解析过程中“插上一脚”。DNS 解析可能会给出 CDN 服务器的 IP 地址，这样你拿到的就会是 CDN 服务器而不是目标网站的实际地址。</p>
+<p>因为 CDN 会缓存网站的大部分资源，比如图片、CSS 样式表，所以有的 HTTP 请求就不需要再发到 Apple，CDN 就可以直接响应你的请求，把数据发给你。</p>
+<p>由 PHP、Java 等后台服务动态生成的页面属于“动态资源”，CDN 无法缓存，只能从目标网站获取。于是你发出的 HTTP 请求就要开始在互联网上的“漫长跋涉”，经过无数的路由器、网关、代理，最后到达目的地。</p>
+<p>目标网站的服务器对外表现的是一个 IP 地址，但为了能够扛住高并发，在内部也是一套复杂的架构。通常在入口是负载均衡设备，例如四层的 LVS 或者七层的 Nginx，在后面是许多的服务器，构成一个更强更稳定的集群。</p>
+<p>负载均衡设备会先访问系统里的缓存服务器，通常有 memory 级缓存 Redis 和 disk 级缓存 Varnish，它们的作用与 CDN 类似，不过是工作在内部网络里，把最频繁访问的数据缓存几秒钟或几分钟，减轻后端应用服务器的压力。</p>
+<p>如果缓存服务器里也没有，那么负载均衡设备就要把请求转发给应用服务器了。这里就是各种开发框架大显神通的地方了，例如 Java 的 Tomcat/Netty/Jetty，Python 的 Django，还有 PHP、Node.js、Golang 等等。它们又会再访问后面的 MySQL、PostgreSQL、MongoDB 等数据库服务，实现用户登录、商品查询、购物下单、扣款支付等业务操作，然后把执行的结果返回给负载均衡设备，同时也可能给缓存服务器里也放一份。</p>
+<p>应用服务器的输出到了负载均衡设备这里，请求的处理就算是完成了，就要按照原路再走回去，还是要经过许多的路由器、网关、代理。如果这个资源允许缓存，那么经过 CDN 的时候它也会做缓存，这样下次同样的请求就不会到达源站了。</p>
+<p>最后网站的响应数据回到了你的设备，它可能是 HTML、JSON、图片或者其他格式的数据，需要由浏览器解析处理才能显示出来，如果数据里面还有超链接，指向别的资源，那么就又要重走一遍整个流程，直到所有的资源都下载完。</p>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://tsunamigg.github.io/2019/06/13/http5/>https://tsunamigg.github.io/2019/06/13/http5/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-06-01T22:23:14+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Jun 1, 2020</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/http/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>http</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2019/06/18/http6/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>http核心</p>
+                <p class='content'>http报文是奠定其成为应用层大哥的核心，恕我HTTP直言，在座的应用层协议都是辣鸡~
+
+
+HTTP的核心基于前面的基础知识复习，我发现所谓的HTTP协议其实“名不副实”。
+因为它压根儿不管”传...</p>
+              </a>
+            
+            
+              <a class='next' href='/2019/06/10/http4/'>
+                <p class='title'>http世界<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>http的运行依赖于下层的TCP/IP，绝不是单打独斗。
+长文警告
+
+
+知识map
+http是整个OSI其中的一部分，而不是单打独斗的大侠，与其相关的协议有很多：TCP/IP、DNS、URI、H...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '从一次链接看TCP与HTTP',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow blur desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#TCPHeader"><span class="toc-text">TCPHeader</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#请求信息字段名详解"><span class="toc-text">请求信息字段名详解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三次握手"><span class="toc-text">三次握手</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#四次挥手"><span class="toc-text">四次挥手</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Keep-Alive"><span class="toc-text">Keep-Alive</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#宏观上的输入网址后发生的事情"><span class="toc-text">宏观上的输入网址后发生的事情</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='list'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='3175833810'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="mailto:ganchao1996@gmai.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/tsunamiGG"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=63035382"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://tsunamigg.github.io/">Copyright © 2017-2020 tsunamigg</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
+    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'robohash',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
