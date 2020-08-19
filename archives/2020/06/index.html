@@ -5,6 +5,8 @@
   <!-- SEO相关 -->
   
     
+      <meta name="robots" content="noindex,follow">
+    
   
   <!-- 渲染优化 -->
   <meta name="renderer" content="webkit">
@@ -16,12 +18,8 @@
 
   <!-- 页面元数据 -->
   
-    <title>2.http是什么？ - Secret Garden</title>
+    <title>Archive: 2020/6 - Secret Garden</title>
   
-    <meta name="keywords" content="http">
-  
-  
-    <meta name="description" content="http是什么？ 如何准确的一句话描述">
   
 
   <!-- feed -->
@@ -72,7 +70,71 @@
 
 <body>
   
-  <div id="loading-bar-wrapper">
+  <div class="cover-wrapper">
+    
+      <cover class='cover  half'>
+        <div class='cover-body'>
+  <div class='a'>
+    
+    
+      <p class="title">超超的秘密花园~</p>
+    
+    
+      <p class="subtitle">学如逆水行舟，不进则退！</p>
+    
+  </div>
+  <div class='b'>
+    
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <input type="text" class="input u-search-input" placeholder="" />
+          <i class="icon fas fa-search fa-fw"></i>
+        </form>
+      </div>
+    
+    <div class='menu navigation'>
+      <ul class='cover-list-h'>
+        
+          
+            <li>
+              <a class="nav home"
+                href="https://volantis.js.org/getting-started/"
+                
+                
+                id="https:volantisjsorggetting-started">
+                <i class='fas fa-book fa-fw'></i>文档
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://volantis.js.org/archives/"
+                
+                
+                id="https:volantisjsorgarchives">
+                <i class='fas fa-rss fa-fw'></i>博文
+              </a>
+            </li>
+          
+            <li>
+              <a class="nav home"
+                href="https://volantis.js.org/examples/"
+                
+                
+                id="https:volantisjsorgexamples">
+                <i class='fas fa-play-circle fa-fw'></i>示例
+              </a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+      </cover>
+    
+    <div id="loading-bar-wrapper">
   <div id="loading-bar"></div>
 </div>
 <header class="l_header shadow blur">
@@ -229,18 +291,30 @@
 
 <script>setLoadingBarProgress(40);</script>
 
+  </div>
 
 
-  <div class="l_body nocover">
+  <div class="l_body">
     <div class='body-wrapper'>
       
 
 <div class='l_main'>
-  
-
-  
-    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+	
+		
+  <section class="post-list ">
+    
       
+        
+          
+        
+      
+    
+    
+      
+        
+          <div class='post-wrapper'>
+            <article class="post white-box shadow reveal ">
+  
 
 
   <section class='meta'>
@@ -250,11 +324,11 @@
       <div class="meta" id="header-meta">
         
           
-  <h1 class="title">
-    <a href="/2019/06/06/http2/">
-      2.http是什么？
+  <h2 class="title">
+    <a href="/2020/06/10/Vue-source-learn3/">
+      Vue的虚拟DOM是怎样的？
     </a>
-  </h1>
+  </h2>
 
 
         
@@ -282,7 +356,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Jun 6, 2019</p>
+    <p>发布于：Jun 10, 2020</p>
   </a>
 </div>
 
@@ -293,13 +367,13 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>811 words</p>
+      <p>4.3k words</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>2 min</p>
+      <p>18 min</p>
     </a>
   </div>
 
@@ -320,239 +394,126 @@
   </section>
 
 
-      <section class="article typo">
-        <div class="article-entry" itemprop="articleBody">
-          
-          <p>http是什么？ 如何准确的一句话描述</p>
-<a id="more"></a>
-
-
-<h3 id="Http是什么？"><a href="#Http是什么？" class="headerlink" title="Http是什么？"></a>Http是什么？</h3><p>如果你是在面试，碰到这种问题，千万别用一句话回答：超文本传输协议。</p>
-<p>把它拆解成有所属关系的三个词： 协议，传输协议，超文本传输协议。</p>
-<h4 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h4><p>你的人生应该是充满协议的，三方协议，租房协议等等…. 一般协议中都会有甲方乙方丙方等等。</p>
-<p>我们为了达成某种目的，强制性的约束参与协议的各方，遵守协议的条款，违约了就会有相应的处罚。</p>
-<p>广泛的来看，计算机中的协议则是指的是： 人与机或者机与机进行交互的规范。</p>
-<p>http协议是使用计算机能够理解的语言确立了一种计算机之间交流通信的规范，以及相关的各种控制和错误处理方式。</p>
-<h4 id="传输协议"><a href="#传输协议" class="headerlink" title="传输协议"></a>传输协议</h4><p>大多数人想到的就是A与B之间的传输，并且分为<strong>请求方</strong>与<strong>响应方</strong>。</p>
-<p>如果从“A&lt;===&gt;B”，变成了“A&lt;=&gt;X&lt;=&gt;Y&lt;=&gt;Z&lt;=&gt;B” ？？？ 很多场景都是需要这样的中间人。</p>
-<p>A 到 B 的传输过程中可以存在任意多个“中间人”，而这些中间人也都遵从 HTTP 协议，只要不打扰基本的数据传输，就可以添加任意的额外功能，例如安全认证、数据压缩、编码转换等等，优化整个传输过程。</p>
-<p>HTTP 是一个在<strong>计算机世界里专门用来在两点之间传输数据的约定和规范</strong>，并不是计算机A和计算机B。</p>
-<h4 id="超文本传输协议"><a href="#超文本传输协议" class="headerlink" title="超文本传输协议"></a>超文本传输协议</h4><p><strong>“文本”</strong>，在协议中，是完整的、有意义的数据，可以被浏览器、服务器这样的上层应用程序处理，而不是 TCP/UDP 这些底层协议里被切分的杂乱无章的二进制包（datagram）。</p>
-<p> <strong>“超文本”</strong>，它是文字、图片、音频和视频等的混合体，最关键的是含有“<strong>超链接</strong>”，能够从一个“超文本”跳跃到另一个“超文本”，形成复杂的非线性、网状的结构关系。</p>
-<p>我们最熟悉的超文本就应该是 HTML 了，它本身只是纯文字文件，但内部用很多标签定义了对图片、音频、视频等的链接，再经过浏览器的解释，呈现在我们面前的就是一个含有多种视听信息的页面。</p>
-<h4 id="非要一句话？"><a href="#非要一句话？" class="headerlink" title="非要一句话？"></a>非要一句话？</h4><p>HTTP 是一个在计算机世界里专门在两点之间传输文字、图片、音频、视频等超文本数据的约定和规范、</p>
-<h4 id="HTTP-不是一个孤立的协议。"><a href="#HTTP-不是一个孤立的协议。" class="headerlink" title="HTTP 不是一个孤立的协议。"></a>HTTP 不是一个孤立的协议。</h4><p>俗话说“一个好汉三个帮”，HTTP 也是如此。在互联网世界里，HTTP 通常跑在 TCP/IP 协议栈之上，依靠 IP 协议实现寻址和路由、TCP 协议实现可靠数据传输、DNS 协议实现域名查找、SSL/TLS 协议实现安全通信。此外，还有一些协议依赖于 HTTP，例如 WebSocket、HTTPDNS 等。这些协议相互交织，构成了一个协议网，而 HTTP 则处于中心地位。</p>
-<h4 id="知识map"><a href="#知识map" class="headerlink" title="知识map"></a>知识map</h4><p><img src="https://static001.geekbang.org/resource/image/27/cc/2781919e73f5d258ff1dc371af632acc.png" alt="img"></p>
-
-          
-            <div class='article_footer'>
-              
-                
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-<section class="widget copyright  desktop mobile">
-  <div class='content'>
-    
-      <blockquote>
-        
-          
-            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
-
-          
-        
-          
-            <p>本文永久链接是：<a href=https://tsunamigg.github.io/2019/06/06/http2/>https://tsunamigg.github.io/2019/06/06/http2/</a></p>
-          
-        
-      </blockquote>
-    
-  </div>
-</section>
-
-  
-
-  
-    
-    
-
-<section class="widget qrcode  desktop mobile">
-  
-
-  <div class='content article-entry'>
-    
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
       
-        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
-        
-          height='64px'
-        ></div>
-      
-    
-      
-        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png'
-        
-          height='64px'
-        ></div>
-      
-    
-  </div>
-</section>
-
-  
-
-
-              
-            </div>
-          
-        </div>
-        
-          
-
-
-  <section class='meta' id="footer-meta">
-    <div class='new-meta-box'>
-      
-        
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-06-01T22:36:38+08:00">
-  <a class='notlink'>
-    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Jun 1, 2020</p>
-  </a>
-</div>
-
-        
-      
-        
-          
-  
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/http/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>http</p></a></div>
-
-
-        
-      
-        
-          
-
-        
-      
-        
+        <p>Vue的虚拟DOM是怎样的？ 为何要引入虚拟DOM？ 它的好处是什么呢？</p>
       
     </div>
+    
+      
+        <div class="button readmore">
+          <a href="/2020/06/10/Vue-source-learn3/">
+            阅读全文 <i class="fas fa-chevron-right"></i>
+          </a>
+        </div>
+      
+    
   </section>
+</article>
 
-
-        
-        
-          <div class="prev-next">
-            
-              <a class='prev' href='/2019/06/12/http3/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>3.有必要分清的URIURL</p>
-                <p class='content'>是一个很迷惑的点，所以查证后记录于此
-
-
-URI/URLURI（Uniform Resource Identifier），中文名称是统一资源标识符，使用它就能够唯一地标记互联网上资源。
-URI ...</p>
-              </a>
-            
-            
-              <a class='next' href='/2019/06/01/http1/'>
-                <p class='title'>1.开始http之路<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>http学习笔记开篇
-
-
-
-http前世今生1989 年，任职于欧洲核子研究中心（CERN）的蒂姆·伯纳斯 - 李（Tim Berners-Lee）发表了一篇论文，提出了在互联网上构建超链接文档...</p>
-              </a>
-            
           </div>
         
-      </section>
-    </article>
+      
+    
+  </section>
   
-
-  
-    <!-- 显示推荐文章和评论 -->
-
-
-
-  <article class="post white-box reveal comments shadow">
-    <section class="article typo">
-      <p ct><i class='fas fa-comments'></i> 评论</p>
-      
-      
-      
-      
-      
-      
-        <section id="comments">
-          <div id="valine_container" class="valine_thread">
-            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
-          </div>
-        </section>
-      
-      
-    </section>
-  </article>
-
+    
+    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
+    
+    
 
   
 
 
-
-
-<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
-
-
-
-  <script>
-    window.subData = {
-      title: '2.http是什么？',
-      tools: true
-    }
-  </script>
-
-
+	
 </div>
 <aside class='l_side'>
   
   
+    
+    
+
+<section class="widget blogger shadow blur desktop mobile">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box' href='/about/'>
+          <img no-lazy src='https://avatars2.githubusercontent.com/u/37109219?s=460&u=72c6da1fb1e7512a0f73dd255dd2b85998682a99&v=4'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+        
+        
+          <p><span id="jinrishici-sentence">不止思考</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="mailto:ganchao1996@gmai.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://github.com/tsunamiGG"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://music.163.com/#/user/home?id=63035382"
+              class="social fas fa-headphones-alt flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+  
 
   
     
     
 
+  
 
-  <section class="widget toc-wrapper shadow blur desktop mobile">
+  
+    
+    
+  
+
+  <section class="widget tagcloud shadow blur desktop mobile">
     
   <header>
     
-      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
     
   </header>
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Http是什么？"><span class="toc-text">Http是什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#协议"><span class="toc-text">协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#传输协议"><span class="toc-text">传输协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#超文本传输协议"><span class="toc-text">超文本传输协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非要一句话？"><span class="toc-text">非要一句话？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP-不是一个孤立的协议。"><span class="toc-text">HTTP 不是一个孤立的协议。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#知识map"><span class="toc-text">知识map</span></a></li></ol></li></ol>
+      <a href="/tags/ESmodule/" style="font-size: 14px; color: #999">ESmodule</a> <a href="/tags/Vue-2-6X-source-learn-notes/" style="font-size: 20.67px; color: #6c6c6c">Vue-2.6X-source-learn notes</a> <a href="/tags/browser/" style="font-size: 14px; color: #999">browser</a> <a href="/tags/css/" style="font-size: 14px; color: #999">css</a> <a href="/tags/diary/" style="font-size: 14px; color: #999">diary</a> <a href="/tags/fabric-canvas-notes/" style="font-size: 14px; color: #999">fabric canvas notes</a> <a href="/tags/http/" style="font-size: 24px; color: #555">http</a> <a href="/tags/http-URI-URL/" style="font-size: 14px; color: #999">http URI/URL</a> <a href="/tags/javascript-event-loop/" style="font-size: 14px; color: #999">javascript event loop</a> <a href="/tags/javascript-native/" style="font-size: 17.33px; color: #828282">javascript-native</a>
     </div>
   </section>
 
+
+  
 
   
 
@@ -643,6 +604,14 @@ http前世今生1989 年，任职于欧洲核子研究中心（CERN）的蒂姆�
   </footer>
 
 <script>setLoadingBarProgress(80);</script>
+
+
+
+
+	<!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
+	
+
+	
 
 
       <script>setLoadingBarProgress(60);</script>
@@ -757,60 +726,6 @@ http前世今生1989 年，任职于欧洲核子研究中心（CERN）的蒂姆�
 
 
 
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
-
-  
-  <script>
-  var GUEST_INFO = ['nick','mail','link'];
-  var meta = 'nick,mail,link'.split(',').filter(function(item){
-    return GUEST_INFO.indexOf(item) > -1
-  });
-  var REQUIRED_FIELDS = ['nick','mail','link'];
-  var requiredFields = 'nick,mail'.split(',').filter(function(item){
-    return REQUIRED_FIELDS.indexOf(item) > -1
-  });
-  var valine = new Valine();
-  function emoji(path, idx, ext) {
-      return path + "/" + path + "-" + idx + "." + ext;
-  }
-  var emojiMaps = {};
-  for (var i = 1; i <= 54; i++) {
-    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
-  }
-  for (var i = 1; i <= 101; i++) {
-    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
-  }
-  for (var i = 1; i <= 116; i++) {
-    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
-  }
-  for (var i = 1; i <= 125; i++) {
-    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
-  }
-  for (var i = 1; i <= 4; i++) {
-    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
-  }
-  valine.init({
-    el: '#valine_container',
-    meta: meta,
-    
-    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
-    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
-    placeholder: "快来评论吧~",
-    pageSize:'10',
-    avatar:'robohash',
-    lang:'zh-cn',
-    visitor: 'true',
-    highlight: 'true',
-    mathJax: 'false',
-    enableQQ: 'true',
-    requiredFields: requiredFields,
-    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
-    emojiMaps: emojiMaps
-  })
-  </script>
 
 
 
